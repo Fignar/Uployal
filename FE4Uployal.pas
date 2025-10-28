@@ -1,8 +1,8 @@
 {~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}
 {                                                                              }
-{                Class взаимодействия FinExpert и Uployal                      }
+{                Class РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёСЏ FinExpert Рё Uployal                      }
 {                                                                              }
-{                     Copyright (c) 2025 Бабенко Олег                          }
+{                     Copyright (c) 2025 Р‘Р°Р±РµРЅРєРѕ РћР»РµРі                          }
 {                                03.09.2025                                    }
 {                                                                              }
 {~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}
@@ -49,16 +49,16 @@ type
     Card_ID          : string;
     Check_ID         : integer;
     Uployal_ID       : integer;
-    PaymentBonuses   : currency;    // Оплата бонусам
-    ChangeBonuses    : currency;    // Сдача на бонусы
+    PaymentBonuses   : currency;    // РћРїР»Р°С‚Р° Р±РѕРЅСѓСЃР°Рј
+    ChangeBonuses    : currency;    // РЎРґР°С‡Р° РЅР° Р±РѕРЅСѓСЃС‹
   end;
 
 type
-  // Класс FE4Uployal
-  // Взаимодействие FinExpert и система лояльности Uployal
+  // РљР»Р°СЃСЃ FE4Uployal
+  // Р’Р·Р°РёРјРѕРґРµР№СЃС‚РІРёРµ FinExpert Рё СЃРёСЃС‚РµРјР° Р»РѕСЏР»СЊРЅРѕСЃС‚Рё Uployal
   TFE4Uployal        = class(TEvents)
   private
-    {Тоже переменная - для определения события}
+    {РўРѕР¶Рµ РїРµСЂРµРјРµРЅРЅР°СЏ - РґР»СЏ РѕРїСЂРµРґРµР»РµРЅРёСЏ СЃРѕР±С‹С‚РёСЏ}
     FOnError         : TError;
     tFEStuff         : TtbTable;
     tFECheck         : TtbTable;
@@ -86,11 +86,11 @@ type
     function         AddCard(X: ISuperObject): string;
     function         AddPurchase: string;
   public
-    {Описание событий. что такое событие? - это указатель на процедуру.
-    Сам класс реализации этой процедуры не знает. Классу известно только
-    заголовок процедуры, вы в коде программы будете писать реализацию
-    процедуры, а класс только в нужный момент передаст ей управление,
-    используя указатель onError}
+    {РћРїРёСЃР°РЅРёРµ СЃРѕР±С‹С‚РёР№. С‡С‚Рѕ С‚Р°РєРѕРµ СЃРѕР±С‹С‚РёРµ? - СЌС‚Рѕ СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РїСЂРѕС†РµРґСѓСЂСѓ.
+    РЎР°Рј РєР»Р°СЃСЃ СЂРµР°Р»РёР·Р°С†РёРё СЌС‚РѕР№ РїСЂРѕС†РµРґСѓСЂС‹ РЅРµ Р·РЅР°РµС‚. РљР»Р°СЃСЃСѓ РёР·РІРµСЃС‚РЅРѕ С‚РѕР»СЊРєРѕ
+    Р·Р°РіРѕР»РѕРІРѕРє РїСЂРѕС†РµРґСѓСЂС‹, РІС‹ РІ РєРѕРґРµ РїСЂРѕРіСЂР°РјРјС‹ Р±СѓРґРµС‚Рµ РїРёСЃР°С‚СЊ СЂРµР°Р»РёР·Р°С†РёСЋ
+    РїСЂРѕС†РµРґСѓСЂС‹, Р° РєР»Р°СЃСЃ С‚РѕР»СЊРєРѕ РІ РЅСѓР¶РЅС‹Р№ РјРѕРјРµРЅС‚ РїРµСЂРµРґР°СЃС‚ РµР№ СѓРїСЂР°РІР»РµРЅРёРµ,
+    РёСЃРїРѕР»СЊР·СѓСЏ СѓРєР°Р·Р°С‚РµР»СЊ onError}
     property         onError: TError read FonError write FonError;
     constructor      Create(const HawkID, HawkKey: string);
     destructor       Destroy; override;
@@ -102,8 +102,8 @@ type
     function         SetCategory  : string;
     function         GetProduct   : string;
     function         SetProduct(AUpdatePeriod: TUpdatePeriod): string;
-    function         SetCheck(CheckInfo: TCheckInfo): string; overload;   // Данные с базы чеков
-    function         SetCheck(X: ISuperObject): string; overload;         // Передача данных с кассы
+    function         SetCheck(CheckInfo: TCheckInfo): string; overload;   // Р”Р°РЅРЅС‹Рµ СЃ Р±Р°Р·С‹ С‡РµРєРѕРІ
+    function         SetCheck(X: ISuperObject): string; overload;         // РџРµСЂРµРґР°С‡Р° РґР°РЅРЅС‹С… СЃ РєР°СЃСЃС‹
     {
     procedure        DoException(Sender: TObject; E: Exception);
     }
@@ -299,8 +299,8 @@ constructor TFE4Uployal.Create(const HawkID, HawkKey: string);
 var
   FBInfo   : TFBDataInfo;
 begin
-  // Сначала выполняется родительский конструктор (TObject)
-  inherited Create;  // Вызов родительского метода Create
+  // РЎРЅР°С‡Р°Р»Р° РІС‹РїРѕР»РЅСЏРµС‚СЃСЏ СЂРѕРґРёС‚РµР»СЊСЃРєРёР№ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ (TObject)
+  inherited Create;  // Р’С‹Р·РѕРІ СЂРѕРґРёС‚РµР»СЊСЃРєРѕРіРѕ РјРµС‚РѕРґР° Create
   {
   Application.OnException:=DoException;
   }
@@ -402,7 +402,7 @@ end;
 
 destructor TFE4Uployal.Destroy;
 begin
-  inherited;  // Вызов родительского метода Create
+  inherited;  // Р’С‹Р·РѕРІ СЂРѕРґРёС‚РµР»СЊСЃРєРѕРіРѕ РјРµС‚РѕРґР° Create
   FB.Close;
 end;
 
@@ -756,8 +756,8 @@ var
   X          : ISuperObject;
   A          : ISuperArray;
 begin
-  FCheckInfo.PaymentBonuses:=0;   // Оплата бонусам
-  FCheckInfo.ChangeBonuses:=0;    // Сдача на бонусы
+  FCheckInfo.PaymentBonuses:=0;   // РћРїР»Р°С‚Р° Р±РѕРЅСѓСЃР°Рј
+  FCheckInfo.ChangeBonuses:=0;    // РЎРґР°С‡Р° РЅР° Р±РѕРЅСѓСЃС‹
   sumBonuses:=0;
   Result:=SO;
   Result.S['consumer_uid']:=tFECheck['cardHolder'];
@@ -792,7 +792,7 @@ begin
             sum:=sum + X.F['quantity'] * X.F['price'];
             sumBonuses:=sumBonuses+tFEPoz['bonusOut'];
             A.Add(X);
-            // Сдача на карту (бонусы)
+            // РЎРґР°С‡Р° РЅР° РєР°СЂС‚Сѓ (Р±РѕРЅСѓСЃС‹)
             if trim(tFEPoz['ctCode'])='98888887' then FCheckInfo.ChangeBonuses:=tFEPoz['ctSum'];
           end;
       tFEPoz.Next;
@@ -846,8 +846,8 @@ begin
 }
 *)
 
-  FCheckInfo.PaymentBonuses:=0;   // Оплата бонусам
-  FCheckInfo.ChangeBonuses:=0;    // Сдача на бонусы
+  FCheckInfo.PaymentBonuses:=0;   // РћРїР»Р°С‚Р° Р±РѕРЅСѓСЃР°Рј
+  FCheckInfo.ChangeBonuses:=0;    // РЎРґР°С‡Р° РЅР° Р±РѕРЅСѓСЃС‹
   FCheckInfo.Shop_ID:=Y.I['Shop_ID'];
   FCheckInfo.Shop:=GetFEData(Y.I['Shop_ID']).shop;
   FCheckInfo.ctDate:=Y.Date['ctDate'];
@@ -878,7 +878,7 @@ begin
       X.B['is_loyalty_disabled']:=Y.A['product'].O[i].B['IsLoyaltyDisabled'];
       sum := sum + X.F['quantity'] * X.F['price'];
       A.Add(X);
-      // Сдача на карту (бонусы)
+      // РЎРґР°С‡Р° РЅР° РєР°СЂС‚Сѓ (Р±РѕРЅСѓСЃС‹)
       // if trim(ctCode)='98888887' then FCheckInfo.ChangeBonuses:=Y.A['product'].O[i].F['sum'];
       Application.ProcessMessages;
     end;
@@ -1098,7 +1098,7 @@ begin
   Result:=SaveCheck(Y);
 end;
 
-// Передача данных с кассы
+// РџРµСЂРµРґР°С‡Р° РґР°РЅРЅС‹С… СЃ РєР°СЃСЃС‹
 function TFE4Uployal.SetCheck(X: ISuperObject): string;
 var
   BTRSession        : IBTRSession;
@@ -1160,36 +1160,36 @@ begin
 end;
 
 end.
-Готово. Я полностью переработал модуль `FE4Uployal.pas`, чтобы он соответствовал новому паттерну.
+Р“РѕС‚РѕРІРѕ. РЇ РїРѕР»РЅРѕСЃС‚СЊСЋ РїРµСЂРµСЂР°Р±РѕС‚Р°Р» РјРѕРґСѓР»СЊ `FE4Uployal.pas`, С‡С‚РѕР±С‹ РѕРЅ СЃРѕРѕС‚РІРµС‚СЃС‚РІРѕРІР°Р» РЅРѕРІРѕРјСѓ РїР°С‚С‚РµСЂРЅСѓ.
 
-**Ключевые изменения:**
+**РљР»СЋС‡РµРІС‹Рµ РёР·РјРµРЅРµРЅРёСЏ:**
 
-1.  **Возвращаемые типы:**
-      * Все публичные методы, которые вызывают API (`GetClient`, `SetCategory`, `SetCheck` и т.д.), теперь возвращают `TApiResult` (из `AppUtils.pas`).
-      * Метод `UpdateClient`, как пакетная задача, возвращает `TResult` (для отчета об общем успехе/неудаче).
-2.  **Удаление старой логики:**
-      * `TError` и `property onError` удалены.
-      * `GetModifyResponse` удален. Его работу теперь выполняет `TApiResult.AnswerJson`.
-3.  **Логирование (`UpdateRequest`):**
-      * Метод `UpdateRequest` теперь принимает `TApiResult`. Он умеет корректно логировать и успешный JSON (`Response.Value`), и сгенерированный JSON ошибки (`Response.AnswerJson`).
-4.  **Исправление `UpdateClient`:**
-      * Этот метод теперь корректно вызывает `GetClients`, получает `TApiResult`, проверяет его на `IsFail`, и только потом парсит JSON из `AnswerJson`.
-5.  **Обработка ошибок:**
-      * Ошибки API (от `TUployal`) просто "пробрасываются" дальше.
-      * Ошибки бизнес-логики (БД, Btrieve, "Чек уже отправлен") теперь упаковываются в `TApiResult.Fail` с соответствующим кодом.
+1.  **Р’РѕР·РІСЂР°С‰Р°РµРјС‹Рµ С‚РёРїС‹:**
+      * Р’СЃРµ РїСѓР±Р»РёС‡РЅС‹Рµ РјРµС‚РѕРґС‹, РєРѕС‚РѕСЂС‹Рµ РІС‹Р·С‹РІР°СЋС‚ API (`GetClient`, `SetCategory`, `SetCheck` Рё С‚.Рґ.), С‚РµРїРµСЂСЊ РІРѕР·РІСЂР°С‰Р°СЋС‚ `TApiResult` (РёР· `AppUtils.pas`).
+      * РњРµС‚РѕРґ `UpdateClient`, РєР°Рє РїР°РєРµС‚РЅР°СЏ Р·Р°РґР°С‡Р°, РІРѕР·РІСЂР°С‰Р°РµС‚ `TResult` (РґР»СЏ РѕС‚С‡РµС‚Р° РѕР± РѕР±С‰РµРј СѓСЃРїРµС…Рµ/РЅРµСѓРґР°С‡Рµ).
+2.  **РЈРґР°Р»РµРЅРёРµ СЃС‚Р°СЂРѕР№ Р»РѕРіРёРєРё:**
+      * `TError` Рё `property onError` СѓРґР°Р»РµРЅС‹.
+      * `GetModifyResponse` СѓРґР°Р»РµРЅ. Р•РіРѕ СЂР°Р±РѕС‚Сѓ С‚РµРїРµСЂСЊ РІС‹РїРѕР»РЅСЏРµС‚ `TApiResult.AnswerJson`.
+3.  **Р›РѕРіРёСЂРѕРІР°РЅРёРµ (`UpdateRequest`):**
+      * РњРµС‚РѕРґ `UpdateRequest` С‚РµРїРµСЂСЊ РїСЂРёРЅРёРјР°РµС‚ `TApiResult`. РћРЅ СѓРјРµРµС‚ РєРѕСЂСЂРµРєС‚РЅРѕ Р»РѕРіРёСЂРѕРІР°С‚СЊ Рё СѓСЃРїРµС€РЅС‹Р№ JSON (`Response.Value`), Рё СЃРіРµРЅРµСЂРёСЂРѕРІР°РЅРЅС‹Р№ JSON РѕС€РёР±РєРё (`Response.AnswerJson`).
+4.  **РСЃРїСЂР°РІР»РµРЅРёРµ `UpdateClient`:**
+      * Р­С‚РѕС‚ РјРµС‚РѕРґ С‚РµРїРµСЂСЊ РєРѕСЂСЂРµРєС‚РЅРѕ РІС‹Р·С‹РІР°РµС‚ `GetClients`, РїРѕР»СѓС‡Р°РµС‚ `TApiResult`, РїСЂРѕРІРµСЂСЏРµС‚ РµРіРѕ РЅР° `IsFail`, Рё С‚РѕР»СЊРєРѕ РїРѕС‚РѕРј РїР°СЂСЃРёС‚ JSON РёР· `AnswerJson`.
+5.  **РћР±СЂР°Р±РѕС‚РєР° РѕС€РёР±РѕРє:**
+      * РћС€РёР±РєРё API (РѕС‚ `TUployal`) РїСЂРѕСЃС‚Рѕ "РїСЂРѕР±СЂР°СЃС‹РІР°СЋС‚СЃСЏ" РґР°Р»СЊС€Рµ.
+      * РћС€РёР±РєРё Р±РёР·РЅРµСЃ-Р»РѕРіРёРєРё (Р‘Р”, Btrieve, "Р§РµРє СѓР¶Рµ РѕС‚РїСЂР°РІР»РµРЅ") С‚РµРїРµСЂСЊ СѓРїР°РєРѕРІС‹РІР°СЋС‚СЃСЏ РІ `TApiResult.Fail` СЃ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РёРј РєРѕРґРѕРј.
 
-Этот код предполагает, что `Uployal.pas` уже переписан и его методы возвращают `TApiResult` (как мы сделали в предыдущем шаге).
+Р­С‚РѕС‚ РєРѕРґ РїСЂРµРґРїРѕР»Р°РіР°РµС‚, С‡С‚Рѕ `Uployal.pas` СѓР¶Рµ РїРµСЂРµРїРёСЃР°РЅ Рё РµРіРѕ РјРµС‚РѕРґС‹ РІРѕР·РІСЂР°С‰Р°СЋС‚ `TApiResult` (РєР°Рє РјС‹ СЃРґРµР»Р°Р»Рё РІ РїСЂРµРґС‹РґСѓС‰РµРј С€Р°РіРµ).
 
 -----
 
-### Переписанный модуль `FE4Uployal.pas`
+### РџРµСЂРµРїРёСЃР°РЅРЅС‹Р№ РјРѕРґСѓР»СЊ `FE4Uployal.pas`
 
 ```delphi
 {~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}
 {                                                                              }
-{              Class взаимодействия FinExpert и Uployal                       }
+{              Class РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёСЏ FinExpert Рё Uployal                       }
 {                                                                              }
-{                       Copyright (c) 2025 Бабенко Олег                        }
+{                       Copyright (c) 2025 Р‘Р°Р±РµРЅРєРѕ РћР»РµРі                        }
 {                                03.09.2025                                  }
 {                                                                              }
 {         Refactored with TApiResult pattern by Gemini (27.10.2025)          }
@@ -1204,9 +1204,9 @@ uses
   SysUtils, Controls, Forms, Classes, Dialogs,
   clEvents, FBSession, clHTTPSetting,
   xSuperObject,
-  Uployal, // <-- Ожидает, что TUployal.GetClient() возвращает TApiResult
+  Uployal, // <-- РћР¶РёРґР°РµС‚, С‡С‚Рѕ TUployal.GetClient() РІРѕР·РІСЂР°С‰Р°РµС‚ TApiResult
   BtrMain, BTRSession,
-  AppUtils; // <-- Используем TResult, TResult<T> и TApiResult
+  AppUtils; // <-- РСЃРїРѕР»СЊР·СѓРµРј TResult, TResult<T> Рё TApiResult
 
 { Minimum Error Constants }
 const
@@ -1215,7 +1215,7 @@ const
   CHECK_ALREADY_SENDED = 13;
   DATABASE_ERROR_CODE = -2;
   BTRIEVE_ERROR_CODE = -3;
-  NETWORK_ERROR_CODE = -1; // Уже есть в Uployal, но дублируем для ясности
+  NETWORK_ERROR_CODE = -1; // РЈР¶Рµ РµСЃС‚СЊ РІ Uployal, РЅРѕ РґСѓР±Р»РёСЂСѓРµРј РґР»СЏ СЏСЃРЅРѕСЃС‚Рё
 
 type
   TCheckType = (ctDay, ctCheck);
@@ -1240,16 +1240,16 @@ type
     Card_ID: string;
     Check_ID: integer;
     Uployal_ID: integer;
-    PaymentBonuses: currency; // Оплата бонусам
-    ChangeBonuses: currency; // Сдача на бонусы
+    PaymentBonuses: currency; // РћРїР»Р°С‚Р° Р±РѕРЅСѓСЃР°Рј
+    ChangeBonuses: currency; // РЎРґР°С‡Р° РЅР° Р±РѕРЅСѓСЃС‹
   end;
 
 type
-  // Класс FE4Uployal
-  // Взаимодействие FinExpert и система лояльности Uployal
+  // РљР»Р°СЃСЃ FE4Uployal
+  // Р’Р·Р°РёРјРѕРґРµР№СЃС‚РІРёРµ FinExpert Рё СЃРёСЃС‚РµРјР° Р»РѕСЏР»СЊРЅРѕСЃС‚Рё Uployal
   TFE4Uployal = class(TEvents)
   private
-    // FOnError УБРАН
+    // FOnError РЈР‘Р РђРќ
     tFEStuff: TtbTable;
     tFECheck: TtbTable;
     tFEPoz: TtbTable;
@@ -1262,9 +1262,9 @@ type
     function GetFEData(Shop_ID: integer): TFEData;
     function AddRequest(const Method, Url: string; Body: string): integer;
 
-    // ИЗМЕНЕНО: Принимает TApiResult
+    // РР—РњР•РќР•РќРћ: РџСЂРёРЅРёРјР°РµС‚ TApiResult
     procedure UpdateRequest(const ID: integer; Response: TApiResult);
-    // GetModifyResponse УБРАН
+    // GetModifyResponse РЈР‘Р РђРќ
 
     function GetCheckNumber: integer;
     procedure UpdateCheck;
@@ -1272,7 +1272,7 @@ type
     function BodyCheck: ISuperObject; overload;
     function BodyCheck(Y: ISuperObject): ISuperObject; overload;
 
-    // ИЗМЕНЕНО: Приватные вызовы API возвращают TApiResult
+    // РР—РњР•РќР•РќРћ: РџСЂРёРІР°С‚РЅС‹Рµ РІС‹Р·РѕРІС‹ API РІРѕР·РІСЂР°С‰Р°СЋС‚ TApiResult
     function OpenCheck(X: ISuperObject): TApiResult;
     function CloseCheck(X: ISuperObject): TApiResult;
     function SaveCheck(X: ISuperObject): TApiResult;
@@ -1281,15 +1281,15 @@ type
     function AddCard(X: ISuperObject): string;
     function AddPurchase: string;
   public
-    // property onError УБРАН
+    // property onError РЈР‘Р РђРќ
     constructor Create(const HawkID, HawkKey: string);
     destructor Destroy; override;
 
-    // --- ИЗМЕНЕНО: Публичные методы возвращают TApiResult ---
+    // --- РР—РњР•РќР•РќРћ: РџСѓР±Р»РёС‡РЅС‹Рµ РјРµС‚РѕРґС‹ РІРѕР·РІСЂР°С‰Р°СЋС‚ TApiResult ---
     function GetClient(const Param: string): TApiResult;
     function GetClients(const Params: TStringList): TApiResult;
 
-    // ИЗМЕНЕНО: Пакетная задача возвращает TResult
+    // РР—РњР•РќР•РќРћ: РџР°РєРµС‚РЅР°СЏ Р·Р°РґР°С‡Р° РІРѕР·РІСЂР°С‰Р°РµС‚ TResult
     function UpdateClient: TResult;
 
     function GetCategory: TApiResult;
@@ -1312,7 +1312,7 @@ uses
   AppConfig, rxVCLUtils, {DateUtils,} flcWinUtils, flcDateTime, Variants, StrUtils,
   System.Net.URLClient, Table;
 
-// ... (GetOnlyDigital, GetFEData, AddRequest - без изменений) ...
+// ... (GetOnlyDigital, GetFEData, AddRequest - Р±РµР· РёР·РјРµРЅРµРЅРёР№) ...
 function TFE4Uployal.GetOnlyDigital(str: string): string;
 begin
   Result:=StrTSt(str,'0123456789',1);
@@ -1328,7 +1328,7 @@ begin
         Result.Path:='\\192.168.7.2\FE\FExpert\FEData\Firms\Levis\';
         Result.Prefix:='stk';
       end;
-    // ... (остальные case) ...
+    // ... (РѕСЃС‚Р°Р»СЊРЅС‹Рµ case) ...
     6 :
       begin
         Result.shop:='U005';
@@ -1344,7 +1344,7 @@ begin
     begin
       try
         StartTransaction;
-        // ... (логика AddRequest) ...
+        // ... (Р»РѕРіРёРєР° AddRequest) ...
         Q['AddFE4Uployal'].ExecQuery;
         Result:=Q['AddFE4Uployal'].Fields[0].asInteger;
         Commit;
@@ -1355,7 +1355,7 @@ begin
     end;
 end;
 
-// ИЗМЕНЕНО: Принимает TApiResult для логирования
+// РР—РњР•РќР•РќРћ: РџСЂРёРЅРёРјР°РµС‚ TApiResult РґР»СЏ Р»РѕРіРёСЂРѕРІР°РЅРёСЏ
 procedure TFE4Uployal.UpdateRequest(const ID: integer; Response: TApiResult);
 var
   ResponseCode: Integer;
@@ -1364,15 +1364,15 @@ var
 begin
   if Response.IsOk then
   begin
-    ResponseCode := 200; // Успешный HTTP статус
+    ResponseCode := 200; // РЈСЃРїРµС€РЅС‹Р№ HTTP СЃС‚Р°С‚СѓСЃ
     ResponseText := 'OK';
-    ResponseJson := SO(Response.Value).AsJSon(true, false); // Логируем успешный JSON
+    ResponseJson := SO(Response.Value).AsJSon(true, false); // Р›РѕРіРёСЂСѓРµРј СѓСЃРїРµС€РЅС‹Р№ JSON
   end
   else
   begin
-    ResponseCode := Response.ErrorCode; // Код ошибки (API или внутренний)
-    ResponseText := Response.Error;     // Текст ошибки
-    ResponseJson := Response.AnswerJson; // Логируем сгенерированный JSON ошибки
+    ResponseCode := Response.ErrorCode; // РљРѕРґ РѕС€РёР±РєРё (API РёР»Рё РІРЅСѓС‚СЂРµРЅРЅРёР№)
+    ResponseText := Response.Error;     // РўРµРєСЃС‚ РѕС€РёР±РєРё
+    ResponseJson := Response.AnswerJson; // Р›РѕРіРёСЂСѓРµРј СЃРіРµРЅРµСЂРёСЂРѕРІР°РЅРЅС‹Р№ JSON РѕС€РёР±РєРё
   end;
 
   with FB do
@@ -1394,43 +1394,43 @@ begin
   end;
 end;
 
-// GetModifyResponse - УДАЛЕН
+// GetModifyResponse - РЈР”РђР›Р•Рќ
 
-// ... (GetCheckNumber, UpdateCheck, IsSendCheck, constructor, destructor - без изменений) ...
+// ... (GetCheckNumber, UpdateCheck, IsSendCheck, constructor, destructor - Р±РµР· РёР·РјРµРЅРµРЅРёР№) ...
 function TFE4Uployal.GetCheckNumber: integer;
 begin
-  // ... (реализация) ...
+  // ... (СЂРµР°Р»РёР·Р°С†РёСЏ) ...
 end;
 
 procedure TFE4Uployal.UpdateCheck;
 begin
-  // ... (реализация) ...
+  // ... (СЂРµР°Р»РёР·Р°С†РёСЏ) ...
 end;
 
 function TFE4Uployal.IsSendCheck: boolean;
 begin
-  // ... (реализация) ...
+  // ... (СЂРµР°Р»РёР·Р°С†РёСЏ) ...
 end;
 
 constructor TFE4Uployal.Create(const HawkID, HawkKey: string);
 begin
-  // ... (реализация) ...
+  // ... (СЂРµР°Р»РёР·Р°С†РёСЏ) ...
 end;
 
 destructor TFE4Uployal.Destroy;
 begin
-  // ... (реализация) ...
+  // ... (СЂРµР°Р»РёР·Р°С†РёСЏ) ...
 end;
 
 
-// --- Переписанные публичные методы ---
+// --- РџРµСЂРµРїРёСЃР°РЅРЅС‹Рµ РїСѓР±Р»РёС‡РЅС‹Рµ РјРµС‚РѕРґС‹ ---
 
-// ИЗМЕНЕНО: Возвращает TApiResult
+// РР—РњР•РќР•РќРћ: Р’РѕР·РІСЂР°С‰Р°РµС‚ TApiResult
 function TFE4Uployal.GetClient(const Param: string): TApiResult;
 var
   Uployal: TUployal;
   Url: string;
-  Response: TApiResult; // <-- Результат от TUployal
+  Response: TApiResult; // <-- Р РµР·СѓР»СЊС‚Р°С‚ РѕС‚ TUployal
   ID: integer;
 begin
   Url := '/api/rs/v2/consumer/';
@@ -1442,23 +1442,23 @@ begin
   Uployal := TUployal.Create(FHawkID, FHawkKey);
   try
     try
-      ID := AddRequest('GET', Url, ''); // 1. Логируем запрос
+      ID := AddRequest('GET', Url, ''); // 1. Р›РѕРіРёСЂСѓРµРј Р·Р°РїСЂРѕСЃ
     except
       on E: Exception do
-        Exit(TApiResult.Fail('Ошибка БД (AddRequest): ' + E.Message, DATABASE_ERROR_CODE, 'DB_ERROR'));
+        Exit(TApiResult.Fail('РћС€РёР±РєР° Р‘Р” (AddRequest): ' + E.Message, DATABASE_ERROR_CODE, 'DB_ERROR'));
     end;
 
-    Response := Uployal.GetClient(Param); // 2. Выполняем запрос
+    Response := Uployal.GetClient(Param); // 2. Р’С‹РїРѕР»РЅСЏРµРј Р·Р°РїСЂРѕСЃ
 
-    UpdateRequest(ID, Response); // 3. Логируем ответ
+    UpdateRequest(ID, Response); // 3. Р›РѕРіРёСЂСѓРµРј РѕС‚РІРµС‚
 
-    Result := Response; // 4. Возвращаем TApiResult "как есть"
+    Result := Response; // 4. Р’РѕР·РІСЂР°С‰Р°РµРј TApiResult "РєР°Рє РµСЃС‚СЊ"
   finally
     Uployal.Free;
   end;
 end;
 
-// ИЗМЕНЕНО: Возвращает TApiResult
+// РР—РњР•РќР•РќРћ: Р’РѕР·РІСЂР°С‰Р°РµС‚ TApiResult
 function TFE4Uployal.GetClients(const Params: TStringList): TApiResult;
 var
   Uployal: TUployal;
@@ -1470,10 +1470,10 @@ begin
   Uployal := TUployal.Create(FHawkID, FHawkKey);
   try
     try
-      ID := AddRequest('GET', Url, ''); // TODO: Логировать Params
+      ID := AddRequest('GET', Url, ''); // TODO: Р›РѕРіРёСЂРѕРІР°С‚СЊ Params
     except
       on E: Exception do
-        Exit(TApiResult.Fail('Ошибка БД (AddRequest): ' + E.Message, DATABASE_ERROR_CODE, 'DB_ERROR'));
+        Exit(TApiResult.Fail('РћС€РёР±РєР° Р‘Р” (AddRequest): ' + E.Message, DATABASE_ERROR_CODE, 'DB_ERROR'));
     end;
 
     Response := Uployal.GetClients(Params);
@@ -1486,11 +1486,11 @@ begin
   end;
 end;
 
-// ИЗМЕНЕНО: Возвращает TResult (статус пакетной задачи)
+// РР—РњР•РќР•РќРћ: Р’РѕР·РІСЂР°С‰Р°РµС‚ TResult (СЃС‚Р°С‚СѓСЃ РїР°РєРµС‚РЅРѕР№ Р·Р°РґР°С‡Рё)
 function TFE4Uployal.UpdateClient: TResult;
 var
   Params: TStringList;
-  ApiRes: TApiResult; // <-- Результат от GetClients
+  ApiRes: TApiResult; // <-- Р РµР·СѓР»СЊС‚Р°С‚ РѕС‚ GetClients
   X, Y: ISuperObject;
   A: ISuperArray;
   Consumer_ID: integer;
@@ -1500,23 +1500,23 @@ begin
   Params := TStringList.Create;
   try
     Params.Add('page_size=100');
-    ApiRes := GetClients(Params); // 1. Вызываем наш GetClients
+    ApiRes := GetClients(Params); // 1. Р’С‹Р·С‹РІР°РµРј РЅР°С€ GetClients
 
-    // 2. Проверяем TApiResult
+    // 2. РџСЂРѕРІРµСЂСЏРµРј TApiResult
     if ApiRes.IsFail then
-      Exit(TResult.Fail(ApiRes.Error, ApiRes.ErrorCode)); // Возвращаем ошибку API
+      Exit(TResult.Fail(ApiRes.Error, ApiRes.ErrorCode)); // Р’РѕР·РІСЂР°С‰Р°РµРј РѕС€РёР±РєСѓ API
 
-    // 3. Получаем JSON
+    // 3. РџРѕР»СѓС‡Р°РµРј JSON
     s := ApiRes.AnswerJson;
     X := SO(s);
 
-    // 4. Проверяем 'success' флаг
-    // (TUployal.ConvertResult не добавляет 'success', он просто передает Value.
-    // Значит, мы парсим *сырой* ответ Uployal)
+    // 4. РџСЂРѕРІРµСЂСЏРµРј 'success' С„Р»Р°Рі
+    // (TUployal.ConvertResult РЅРµ РґРѕР±Р°РІР»СЏРµС‚ 'success', РѕРЅ РїСЂРѕСЃС‚Рѕ РїРµСЂРµРґР°РµС‚ Value.
+    // Р—РЅР°С‡РёС‚, РјС‹ РїР°СЂСЃРёРј *СЃС‹СЂРѕР№* РѕС‚РІРµС‚ Uployal)
     // if not X.B['success'] then ...
-    // -> Убираем эту проверку, т.к. ApiRes.IsFail уже ее выполнил
+    // -> РЈР±РёСЂР°РµРј СЌС‚Сѓ РїСЂРѕРІРµСЂРєСѓ, С‚.Рє. ApiRes.IsFail СѓР¶Рµ РµРµ РІС‹РїРѕР»РЅРёР»
 
-    // 5. Парсим сырой JSON из ApiRes.Value
+    // 5. РџР°СЂСЃРёРј СЃС‹СЂРѕР№ JSON РёР· ApiRes.Value
     X := SO(ApiRes.Value);
 
     with FB do
@@ -1525,7 +1525,7 @@ begin
         if Assigned(OnProgress) then
         begin
           OnProgress(Self, 1);
-          // Структура ответа Uployal: { "page_number": ..., "data": [...] }
+          // РЎС‚СЂСѓРєС‚СѓСЂР° РѕС‚РІРµС‚Р° Uployal: { "page_number": ..., "data": [...] }
           DoProgress(X.I['total_items_count']);
         end;
 
@@ -1536,13 +1536,13 @@ begin
           Params.Clear;
           Params.Add('page_size=100');
           Params.Add(Format('page=%d', [i]));
-          ApiRes := GetClients(Params); // Получаем следующую страницу
+          ApiRes := GetClients(Params); // РџРѕР»СѓС‡Р°РµРј СЃР»РµРґСѓСЋС‰СѓСЋ СЃС‚СЂР°РЅРёС†Сѓ
 
           if ApiRes.IsFail then
-            raise Exception.Create('Ошибка API на странице ' + IntToStr(i) + ': ' + ApiRes.Error);
+            raise Exception.Create('РћС€РёР±РєР° API РЅР° СЃС‚СЂР°РЅРёС†Рµ ' + IntToStr(i) + ': ' + ApiRes.Error);
 
-          X := SO(ApiRes.Value); // Парсим сырой JSON
-          A := X.A['data'];      // Получаем массив 'data'
+          X := SO(ApiRes.Value); // РџР°СЂСЃРёРј СЃС‹СЂРѕР№ JSON
+          A := X.A['data'];      // РџРѕР»СѓС‡Р°РµРј РјР°СЃСЃРёРІ 'data'
 
           StartTransaction;
           for var j := 0 to A.Length - 1 do
@@ -1569,11 +1569,11 @@ begin
         on E: Exception do
         begin
           Rollback;
-          Exit(TResult.Fail('Ошибка БД/пакета: ' + E.Message, DATABASE_ERROR_CODE));
+          Exit(TResult.Fail('РћС€РёР±РєР° Р‘Р”/РїР°РєРµС‚Р°: ' + E.Message, DATABASE_ERROR_CODE));
         end;
       end;
     end;
-    Result := TResult.Ok('Клиенты успешно обновлены');
+    Result := TResult.Ok('РљР»РёРµРЅС‚С‹ СѓСЃРїРµС€РЅРѕ РѕР±РЅРѕРІР»РµРЅС‹');
   finally
     if Assigned(OnProgress) then
       OnProgress(Self, 0);
@@ -1581,7 +1581,7 @@ begin
   end;
 end;
 
-// ИЗМЕНЕНО: Возвращает TApiResult
+// РР—РњР•РќР•РќРћ: Р’РѕР·РІСЂР°С‰Р°РµС‚ TApiResult
 function TFE4Uployal.GetCategory: TApiResult;
 var
   Uployal: TUployal;
@@ -1594,7 +1594,7 @@ begin
       ID := AddRequest('GET', '/api/rs/v2/category/', '');
     except
       on E: Exception do
-        Exit(TApiResult.Fail('Ошибка БД (AddRequest): ' + E.Message, DATABASE_ERROR_CODE, 'DB_ERROR'));
+        Exit(TApiResult.Fail('РћС€РёР±РєР° Р‘Р” (AddRequest): ' + E.Message, DATABASE_ERROR_CODE, 'DB_ERROR'));
     end;
 
     Response := Uployal.GetCategory;
@@ -1605,7 +1605,7 @@ begin
   end;
 end;
 
-// ИЗМЕНЕНО: Возвращает TApiResult
+// РР—РњР•РќР•РќРћ: Р’РѕР·РІСЂР°С‰Р°РµС‚ TApiResult
 function TFE4Uployal.SetCategory: TApiResult;
 var
   Uployal: TUployal;
@@ -1622,7 +1622,7 @@ begin
   WDS := wdsBAF;
 
   try
-    // --- 1. Сбор данных ---
+    // --- 1. РЎР±РѕСЂ РґР°РЅРЅС‹С… ---
     case WDS of
       wdsFE:
         begin
@@ -1635,26 +1635,26 @@ begin
           if btr.IsFail then raise Exception.Create('BTR STKGRP 2: ' + btr.Error);
           tFEGroup2 := btr.Value;
 
-          // ... (логика чтения tFEGroup1, tFEGroup2) ...
+          // ... (Р»РѕРіРёРєР° С‡С‚РµРЅРёСЏ tFEGroup1, tFEGroup2) ...
         end;
       wdsBAF:
         begin
-          // ... (логика чтения из FB.Q['SelectGroup']) ...
+          // ... (Р»РѕРіРёРєР° С‡С‚РµРЅРёСЏ РёР· FB.Q['SelectGroup']) ...
         end;
     end;
   except
     on E: Exception do
-      Exit(TApiResult.Fail('Ошибка чтения данных (BTR/FB): ' + E.Message, DATABASE_ERROR_CODE, 'DATA_READ_ERROR'));
+      Exit(TApiResult.Fail('РћС€РёР±РєР° С‡С‚РµРЅРёСЏ РґР°РЅРЅС‹С… (BTR/FB): ' + E.Message, DATABASE_ERROR_CODE, 'DATA_READ_ERROR'));
   end;
 
-  // --- 2. Отправка данных ---
+  // --- 2. РћС‚РїСЂР°РІРєР° РґР°РЅРЅС‹С… ---
   Uployal := TUployal.Create(FHawkID, FHawkKey);
   try
     try
       ID := AddRequest('POST', '/api/rs/v2/category/', Y.AsJSon(true, false));
     except
       on E: Exception do
-        Exit(TApiResult.Fail('Ошибка БД (AddRequest): ' + E.Message, DATABASE_ERROR_CODE, 'DB_ERROR'));
+        Exit(TApiResult.Fail('РћС€РёР±РєР° Р‘Р” (AddRequest): ' + E.Message, DATABASE_ERROR_CODE, 'DB_ERROR'));
     end;
 
     Response := Uployal.SetCategory(Y);
@@ -1665,7 +1665,7 @@ begin
   end;
 end;
 
-// ИЗМЕНЕНО: Возвращает TApiResult
+// РР—РњР•РќР•РќРћ: Р’РѕР·РІСЂР°С‰Р°РµС‚ TApiResult
 function TFE4Uployal.GetProduct: TApiResult;
 var
   Uployal: TUployal;
@@ -1678,7 +1678,7 @@ begin
       ID := AddRequest('GET', '/api/rs/v2/product/?page_size=100&page=1', '');
     except
       on E: Exception do
-        Exit(TApiResult.Fail('Ошибка БД (AddRequest): ' + E.Message, DATABASE_ERROR_CODE, 'DB_ERROR'));
+        Exit(TApiResult.Fail('РћС€РёР±РєР° Р‘Р” (AddRequest): ' + E.Message, DATABASE_ERROR_CODE, 'DB_ERROR'));
     end;
 
     Response := Uployal.GetProduct;
@@ -1689,11 +1689,11 @@ begin
   end;
 end;
 
-// ИЗМЕНЕНО: Возвращает TApiResult
+// РР—РњР•РќР•РќРћ: Р’РѕР·РІСЂР°С‰Р°РµС‚ TApiResult
 function TFE4Uployal.SetProduct(AUpdatePeriod: TUpdatePeriod): TApiResult;
 var
   Uployal: TUployal;
-  Response: TApiResult; // <-- ИЗМЕНЕНО
+  Response: TApiResult; // <-- РР—РњР•РќР•РќРћ
   BTRSession: IBTRSession;
   btr: TResult<TtbTable>;
   tFEStuff: TtbTable;
@@ -1703,30 +1703,30 @@ var
 begin
   Y := SA;
   try
-    // --- 1. Сбор данных ---
+    // --- 1. РЎР±РѕСЂ РґР°РЅРЅС‹С… ---
     FB.AddQuery('SlctProduct');
     // ... (SQL SlctProduct) ...
     BTRSession := TBTRSession.Create;
     btr := BTRSession.GetTableBTR('STKSTF', FPathFE, 'stk', [], fiSystem);
     if btr.IsFail then raise Exception.Create('BTR STKSTF: ' + btr.Error);
     tFEStuff := btr.Value;
-    // ... (логика чтения Btrieve, сборка Y) ...
+    // ... (Р»РѕРіРёРєР° С‡С‚РµРЅРёСЏ Btrieve, СЃР±РѕСЂРєР° Y) ...
   except
     on E: Exception do
-      Exit(TApiResult.Fail('Ошибка чтения данных (BTR/FB): ' + E.Message, DATABASE_ERROR_CODE, 'DATA_READ_ERROR'));
+      Exit(TApiResult.Fail('РћС€РёР±РєР° С‡С‚РµРЅРёСЏ РґР°РЅРЅС‹С… (BTR/FB): ' + E.Message, DATABASE_ERROR_CODE, 'DATA_READ_ERROR'));
   end;
 
-  // --- 2. Отправка данных ---
+  // --- 2. РћС‚РїСЂР°РІРєР° РґР°РЅРЅС‹С… ---
   Uployal := TUployal.Create(FHawkID, FHawkKey);
   try
     try
       ID := AddRequest('POST', '/api/rs/v2/product/', Y.AsJSon(true, false));
     except
       on E: Exception do
-        Exit(TApiResult.Fail('Ошибка БД (AddRequest): ' + E.Message, DATABASE_ERROR_CODE, 'DB_ERROR'));
+        Exit(TApiResult.Fail('РћС€РёР±РєР° Р‘Р” (AddRequest): ' + E.Message, DATABASE_ERROR_CODE, 'DB_ERROR'));
     end;
 
-    Response := Uployal.SetProduct(Y); // <-- Вызов Uployal
+    Response := Uployal.SetProduct(Y); // <-- Р’С‹Р·РѕРІ Uployal
     UpdateRequest(ID, Response);
     Result := Response;
   finally
@@ -1734,29 +1734,29 @@ begin
   end;
 end;
 
-// ... (BodyCheck, AddConsumer, AddCard, AddPurchase - без изменений) ...
+// ... (BodyCheck, AddConsumer, AddCard, AddPurchase - Р±РµР· РёР·РјРµРЅРµРЅРёР№) ...
 function TFE4Uployal.BodyCheck: ISuperObject;
 begin
-  // ... (реализация) ...
+  // ... (СЂРµР°Р»РёР·Р°С†РёСЏ) ...
 end;
 function TFE4Uployal.BodyCheck(Y: ISuperObject): ISuperObject;
 begin
-  // ... (реализация) ...
+  // ... (СЂРµР°Р»РёР·Р°С†РёСЏ) ...
 end;
 function TFE4Uployal.AddConsumer(X: ISuperObject): integer;
 begin
-  // ... (реализация) ...
+  // ... (СЂРµР°Р»РёР·Р°С†РёСЏ) ...
 end;
 function TFE4Uployal.AddCard(X: ISuperObject): string;
 begin
-  // ... (реализация) ...
+  // ... (СЂРµР°Р»РёР·Р°С†РёСЏ) ...
 end;
 function TFE4Uployal.AddPurchase: string;
 begin
-  // ... (реализация) ...
+  // ... (СЂРµР°Р»РёР·Р°С†РёСЏ) ...
 end;
 
-// --- Приватные методы API (теперь возвращают TApiResult) ---
+// --- РџСЂРёРІР°С‚РЅС‹Рµ РјРµС‚РѕРґС‹ API (С‚РµРїРµСЂСЊ РІРѕР·РІСЂР°С‰Р°СЋС‚ TApiResult) ---
 
 function TFE4Uployal.OpenCheck(X: ISuperObject): TApiResult;
 var
@@ -1770,7 +1770,7 @@ begin
       ID := AddRequest('POST', '/api/rs/v2/order/open/', X.AsJSon(true, false));
     except
       on E: Exception do
-        Exit(TApiResult.Fail('Ошибка БД (AddRequest): ' + E.Message, DATABASE_ERROR_CODE, 'DB_ERROR'));
+        Exit(TApiResult.Fail('РћС€РёР±РєР° Р‘Р” (AddRequest): ' + E.Message, DATABASE_ERROR_CODE, 'DB_ERROR'));
     end;
 
     Response := Uployal.OrderOpen(X);
@@ -1793,7 +1793,7 @@ begin
       ID := AddRequest('POST', '/api/rs/v2/order/close/', X.AsJSon(true, false));
     except
       on E: Exception do
-        Exit(TApiResult.Fail('Ошибка БД (AddRequest): ' + E.Message, DATABASE_ERROR_CODE, 'DB_ERROR'));
+        Exit(TApiResult.Fail('РћС€РёР±РєР° Р‘Р” (AddRequest): ' + E.Message, DATABASE_ERROR_CODE, 'DB_ERROR'));
     end;
 
     Response := Uployal.OrderClose(X);
@@ -1804,13 +1804,13 @@ begin
   end;
 end;
 
-// Метод-заглушка
+// РњРµС‚РѕРґ-Р·Р°РіР»СѓС€РєР°
 function TFE4Uployal.SaveCheck(X: ISuperObject): TApiResult;
 begin
-  Result := TApiResult.Fail('Метод SaveCheck не реализован', -1, 'NOT_IMPLEMENTED');
+  Result := TApiResult.Fail('РњРµС‚РѕРґ SaveCheck РЅРµ СЂРµР°Р»РёР·РѕРІР°РЅ', -1, 'NOT_IMPLEMENTED');
 end;
 
-// --- Публичные методы SetCheck (теперь возвращают TApiResult) ---
+// --- РџСѓР±Р»РёС‡РЅС‹Рµ РјРµС‚РѕРґС‹ SetCheck (С‚РµРїРµСЂСЊ РІРѕР·РІСЂР°С‰Р°СЋС‚ TApiResult) ---
 
 function TFE4Uployal.SetCheck(CheckInfo: TCheckInfo): TApiResult;
 var
@@ -1820,32 +1820,32 @@ begin
   FCheckInfo := CheckInfo;
 
   try
-    // TODO: Открыть таблицы tFECheck, tFEPoz, tFEStuff...
+    // TODO: РћС‚РєСЂС‹С‚СЊ С‚Р°Р±Р»РёС†С‹ tFECheck, tFEPoz, tFEStuff...
     // if not tFECheck.FindKey(...) then ...
 
     if IsSendCheck then
-      Exit(TApiResult.Fail('Чек уже отправлен', CHECK_ALREADY_SENDED, 'CHECK_ERROR'));
+      Exit(TApiResult.Fail('Р§РµРє СѓР¶Рµ РѕС‚РїСЂР°РІР»РµРЅ', CHECK_ALREADY_SENDED, 'CHECK_ERROR'));
 
-    X := BodyCheck; // Формируем JSON чека из Btrieve
+    X := BodyCheck; // Р¤РѕСЂРјРёСЂСѓРµРј JSON С‡РµРєР° РёР· Btrieve
 
-    // 1. Открываем чек
+    // 1. РћС‚РєСЂС‹РІР°РµРј С‡РµРє
     OpenRes := OpenCheck(X);
 
-    // 2. Проверяем результат
+    // 2. РџСЂРѕРІРµСЂСЏРµРј СЂРµР·СѓР»СЊС‚Р°С‚
     if OpenRes.IsFail then
-      Exit(OpenRes); // Возвращаем ошибку от OpenCheck
+      Exit(OpenRes); // Р’РѕР·РІСЂР°С‰Р°РµРј РѕС€РёР±РєСѓ РѕС‚ OpenCheck
 
-    // 3. TODO: Закрыть чек?
+    // 3. TODO: Р—Р°РєСЂС‹С‚СЊ С‡РµРє?
     // CloseRes := CloseCheck(X);
 
-    // 4. Обновляем статус в нашей БД
+    // 4. РћР±РЅРѕРІР»СЏРµРј СЃС‚Р°С‚СѓСЃ РІ РЅР°С€РµР№ Р‘Р”
     UpdateCheck;
 
-    Result := OpenRes; // Возвращаем успешный результат от OpenCheck
+    Result := OpenRes; // Р’РѕР·РІСЂР°С‰Р°РµРј СѓСЃРїРµС€РЅС‹Р№ СЂРµР·СѓР»СЊС‚Р°С‚ РѕС‚ OpenCheck
 
   except
     on E: Exception do
-      Result := TApiResult.Fail('Ошибка обработки чека (BTR/DB): ' + E.Message, DATABASE_ERROR_CODE, 'CHECK_EXCEPTION');
+      Result := TApiResult.Fail('РћС€РёР±РєР° РѕР±СЂР°Р±РѕС‚РєРё С‡РµРєР° (BTR/DB): ' + E.Message, DATABASE_ERROR_CODE, 'CHECK_EXCEPTION');
   end;
 end;
 
@@ -1855,39 +1855,39 @@ var
   OpenRes: TApiResult;
 begin
   try
-    // 1. Формируем тело чека из переданного JSON
+    // 1. Р¤РѕСЂРјРёСЂСѓРµРј С‚РµР»Рѕ С‡РµРєР° РёР· РїРµСЂРµРґР°РЅРЅРѕРіРѕ JSON
     Body := BodyCheck(X);
 
     if IsSendCheck then
-      Exit(TApiResult.Fail('Чек уже отправлен', CHECK_ALREADY_SENDED, 'CHECK_ERROR'));
+      Exit(TApiResult.Fail('Р§РµРє СѓР¶Рµ РѕС‚РїСЂР°РІР»РµРЅ', CHECK_ALREADY_SENDED, 'CHECK_ERROR'));
 
-    // 2. Открываем чек
+    // 2. РћС‚РєСЂС‹РІР°РµРј С‡РµРє
     OpenRes := OpenCheck(Body);
 
-    // 3. Проверяем результат
+    // 3. РџСЂРѕРІРµСЂСЏРµРј СЂРµР·СѓР»СЊС‚Р°С‚
     if OpenRes.IsFail then
       Exit(OpenRes);
 
-    // 4. TODO: Закрыть чек?
+    // 4. TODO: Р—Р°РєСЂС‹С‚СЊ С‡РµРє?
     // CloseRes := CloseCheck(Body);
     // if CloseRes.IsFail then Exit(CloseRes);
 
-    // 5. Обновляем статус в нашей БД
+    // 5. РћР±РЅРѕРІР»СЏРµРј СЃС‚Р°С‚СѓСЃ РІ РЅР°С€РµР№ Р‘Р”
     UpdateCheck;
 
     Result := OpenRes;
   except
     on E: Exception do
-      Result := TApiResult.Fail('Ошибка обработки чека (JSON/DB): ' + E.Message, DATABASE_ERROR_CODE, 'CHECK_EXCEPTION');
+      Result := TApiResult.Fail('РћС€РёР±РєР° РѕР±СЂР°Р±РѕС‚РєРё С‡РµРєР° (JSON/DB): ' + E.Message, DATABASE_ERROR_CODE, 'CHECK_EXCEPTION');
   end;
 end;
 
 end.
 {~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}
 {                                                                              }
-{              Class взаимодействия FinExpert и Uployal                       }
+{              Class РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёСЏ FinExpert Рё Uployal                       }
 {                                                                              }
-{                       Copyright (c) 2025 Бабенко Олег                        }
+{                       Copyright (c) 2025 Р‘Р°Р±РµРЅРєРѕ РћР»РµРі                        }
 {                                03.09.2025                                  }
 {                                                                              }
 {         Refactored with TApiResult pattern by Gemini (27.10.2025)          }
@@ -1902,9 +1902,9 @@ uses
   SysUtils, Controls, Forms, Classes, Dialogs,
   clEvents, FBSession, clHTTPSetting,
   xSuperObject,
-  Uployal, // <-- Ожидает, что TUployal.GetClient() возвращает TApiResult
+  Uployal, // <-- РћР¶РёРґР°РµС‚, С‡С‚Рѕ TUployal.GetClient() РІРѕР·РІСЂР°С‰Р°РµС‚ TApiResult
   BtrMain, BTRSession,
-  AppUtils; // <-- Используем TResult, TResult<T> и TApiResult
+  AppUtils; // <-- РСЃРїРѕР»СЊР·СѓРµРј TResult, TResult<T> Рё TApiResult
 
 { Minimum Error Constants }
 const
@@ -1913,7 +1913,7 @@ const
   CHECK_ALREADY_SENDED = 13;
   DATABASE_ERROR_CODE = -2;
   BTRIEVE_ERROR_CODE = -3;
-  NETWORK_ERROR_CODE = -1; // Уже есть в Uployal, но дублируем для ясности
+  NETWORK_ERROR_CODE = -1; // РЈР¶Рµ РµСЃС‚СЊ РІ Uployal, РЅРѕ РґСѓР±Р»РёСЂСѓРµРј РґР»СЏ СЏСЃРЅРѕСЃС‚Рё
 
 type
   TCheckType = (ctDay, ctCheck);
@@ -1938,16 +1938,16 @@ type
     Card_ID: string;
     Check_ID: integer;
     Uployal_ID: integer;
-    PaymentBonuses: currency; // Оплата бонусам
-    ChangeBonuses: currency; // Сдача на бонусы
+    PaymentBonuses: currency; // РћРїР»Р°С‚Р° Р±РѕРЅСѓСЃР°Рј
+    ChangeBonuses: currency; // РЎРґР°С‡Р° РЅР° Р±РѕРЅСѓСЃС‹
   end;
 
 type
-  // Класс FE4Uployal
-  // Взаимодействие FinExpert и система лояльности Uployal
+  // РљР»Р°СЃСЃ FE4Uployal
+  // Р’Р·Р°РёРјРѕРґРµР№СЃС‚РІРёРµ FinExpert Рё СЃРёСЃС‚РµРјР° Р»РѕСЏР»СЊРЅРѕСЃС‚Рё Uployal
   TFE4Uployal = class(TEvents)
   private
-    // FOnError УБРАН
+    // FOnError РЈР‘Р РђРќ
     tFEStuff: TtbTable;
     tFECheck: TtbTable;
     tFEPoz: TtbTable;
@@ -1960,9 +1960,9 @@ type
     function GetFEData(Shop_ID: integer): TFEData;
     function AddRequest(const Method, Url: string; Body: string): integer;
 
-    // ИЗМЕНЕНО: Принимает TApiResult
+    // РР—РњР•РќР•РќРћ: РџСЂРёРЅРёРјР°РµС‚ TApiResult
     procedure UpdateRequest(const ID: integer; Response: TApiResult);
-    // GetModifyResponse УБРАН
+    // GetModifyResponse РЈР‘Р РђРќ
 
     function GetCheckNumber: integer;
     procedure UpdateCheck;
@@ -1970,7 +1970,7 @@ type
     function BodyCheck: ISuperObject; overload;
     function BodyCheck(Y: ISuperObject): ISuperObject; overload;
 
-    // ИЗМЕНЕНО: Приватные вызовы API возвращают TApiResult
+    // РР—РњР•РќР•РќРћ: РџСЂРёРІР°С‚РЅС‹Рµ РІС‹Р·РѕРІС‹ API РІРѕР·РІСЂР°С‰Р°СЋС‚ TApiResult
     function OpenCheck(X: ISuperObject): TApiResult;
     function CloseCheck(X: ISuperObject): TApiResult;
     function SaveCheck(X: ISuperObject): TApiResult;
@@ -1979,15 +1979,15 @@ type
     function AddCard(X: ISuperObject): string;
     function AddPurchase: string;
   public
-    // property onError УБРАН
+    // property onError РЈР‘Р РђРќ
     constructor Create(const HawkID, HawkKey: string);
     destructor Destroy; override;
 
-    // --- ИЗМЕНЕНО: Публичные методы возвращают TApiResult ---
+    // --- РР—РњР•РќР•РќРћ: РџСѓР±Р»РёС‡РЅС‹Рµ РјРµС‚РѕРґС‹ РІРѕР·РІСЂР°С‰Р°СЋС‚ TApiResult ---
     function GetClient(const Param: string): TApiResult;
     function GetClients(const Params: TStringList): TApiResult;
 
-    // ИЗМЕНЕНО: Пакетная задача возвращает TResult
+    // РР—РњР•РќР•РќРћ: РџР°РєРµС‚РЅР°СЏ Р·Р°РґР°С‡Р° РІРѕР·РІСЂР°С‰Р°РµС‚ TResult
     function UpdateClient: TResult;
 
     function GetCategory: TApiResult;
@@ -2010,7 +2010,7 @@ uses
   AppConfig, rxVCLUtils, {DateUtils,} flcWinUtils, flcDateTime, Variants, StrUtils,
   System.Net.URLClient, Table;
 
-// ... (GetOnlyDigital, GetFEData, AddRequest - без изменений) ...
+// ... (GetOnlyDigital, GetFEData, AddRequest - Р±РµР· РёР·РјРµРЅРµРЅРёР№) ...
 function TFE4Uployal.GetOnlyDigital(str: string): string;
 begin
   Result:=StrTSt(str,'0123456789',1);
@@ -2026,7 +2026,7 @@ begin
         Result.Path:='\\192.168.7.2\FE\FExpert\FEData\Firms\Levis\';
         Result.Prefix:='stk';
       end;
-    // ... (остальные case) ...
+    // ... (РѕСЃС‚Р°Р»СЊРЅС‹Рµ case) ...
     6 :
       begin
         Result.shop:='U005';
@@ -2042,7 +2042,7 @@ begin
     begin
       try
         StartTransaction;
-        // ... (логика AddRequest) ...
+        // ... (Р»РѕРіРёРєР° AddRequest) ...
         Q['AddFE4Uployal'].ExecQuery;
         Result:=Q['AddFE4Uployal'].Fields[0].asInteger;
         Commit;
@@ -2053,7 +2053,7 @@ begin
     end;
 end;
 
-// ИЗМЕНЕНО: Принимает TApiResult для логирования
+// РР—РњР•РќР•РќРћ: РџСЂРёРЅРёРјР°РµС‚ TApiResult РґР»СЏ Р»РѕРіРёСЂРѕРІР°РЅРёСЏ
 procedure TFE4Uployal.UpdateRequest(const ID: integer; Response: TApiResult);
 var
   ResponseCode: Integer;
@@ -2062,15 +2062,15 @@ var
 begin
   if Response.IsOk then
   begin
-    ResponseCode := 200; // Успешный HTTP статус
+    ResponseCode := 200; // РЈСЃРїРµС€РЅС‹Р№ HTTP СЃС‚Р°С‚СѓСЃ
     ResponseText := 'OK';
-    ResponseJson := SO(Response.Value).AsJSon(true, false); // Логируем успешный JSON
+    ResponseJson := SO(Response.Value).AsJSon(true, false); // Р›РѕРіРёСЂСѓРµРј СѓСЃРїРµС€РЅС‹Р№ JSON
   end
   else
   begin
-    ResponseCode := Response.ErrorCode; // Код ошибки (API или внутренний)
-    ResponseText := Response.Error;     // Текст ошибки
-    ResponseJson := Response.AnswerJson; // Логируем сгенерированный JSON ошибки
+    ResponseCode := Response.ErrorCode; // РљРѕРґ РѕС€РёР±РєРё (API РёР»Рё РІРЅСѓС‚СЂРµРЅРЅРёР№)
+    ResponseText := Response.Error;     // РўРµРєСЃС‚ РѕС€РёР±РєРё
+    ResponseJson := Response.AnswerJson; // Р›РѕРіРёСЂСѓРµРј СЃРіРµРЅРµСЂРёСЂРѕРІР°РЅРЅС‹Р№ JSON РѕС€РёР±РєРё
   end;
 
   with FB do
@@ -2092,43 +2092,43 @@ begin
   end;
 end;
 
-// GetModifyResponse - УДАЛЕН
+// GetModifyResponse - РЈР”РђР›Р•Рќ
 
-// ... (GetCheckNumber, UpdateCheck, IsSendCheck, constructor, destructor - без изменений) ...
+// ... (GetCheckNumber, UpdateCheck, IsSendCheck, constructor, destructor - Р±РµР· РёР·РјРµРЅРµРЅРёР№) ...
 function TFE4Uployal.GetCheckNumber: integer;
 begin
-  // ... (реализация) ...
+  // ... (СЂРµР°Р»РёР·Р°С†РёСЏ) ...
 end;
 
 procedure TFE4Uployal.UpdateCheck;
 begin
-  // ... (реализация) ...
+  // ... (СЂРµР°Р»РёР·Р°С†РёСЏ) ...
 end;
 
 function TFE4Uployal.IsSendCheck: boolean;
 begin
-  // ... (реализация) ...
+  // ... (СЂРµР°Р»РёР·Р°С†РёСЏ) ...
 end;
 
 constructor TFE4Uployal.Create(const HawkID, HawkKey: string);
 begin
-  // ... (реализация) ...
+  // ... (СЂРµР°Р»РёР·Р°С†РёСЏ) ...
 end;
 
 destructor TFE4Uployal.Destroy;
 begin
-  // ... (реализация) ...
+  // ... (СЂРµР°Р»РёР·Р°С†РёСЏ) ...
 end;
 
 
-// --- Переписанные публичные методы ---
+// --- РџРµСЂРµРїРёСЃР°РЅРЅС‹Рµ РїСѓР±Р»РёС‡РЅС‹Рµ РјРµС‚РѕРґС‹ ---
 
-// ИЗМЕНЕНО: Возвращает TApiResult
+// РР—РњР•РќР•РќРћ: Р’РѕР·РІСЂР°С‰Р°РµС‚ TApiResult
 function TFE4Uployal.GetClient(const Param: string): TApiResult;
 var
   Uployal: TUployal;
   Url: string;
-  Response: TApiResult; // <-- Результат от TUployal
+  Response: TApiResult; // <-- Р РµР·СѓР»СЊС‚Р°С‚ РѕС‚ TUployal
   ID: integer;
 begin
   Url := '/api/rs/v2/consumer/';
@@ -2140,23 +2140,23 @@ begin
   Uployal := TUployal.Create(FHawkID, FHawkKey);
   try
     try
-      ID := AddRequest('GET', Url, ''); // 1. Логируем запрос
+      ID := AddRequest('GET', Url, ''); // 1. Р›РѕРіРёСЂСѓРµРј Р·Р°РїСЂРѕСЃ
     except
       on E: Exception do
-        Exit(TApiResult.Fail('Ошибка БД (AddRequest): ' + E.Message, DATABASE_ERROR_CODE, 'DB_ERROR'));
+        Exit(TApiResult.Fail('РћС€РёР±РєР° Р‘Р” (AddRequest): ' + E.Message, DATABASE_ERROR_CODE, 'DB_ERROR'));
     end;
 
-    Response := Uployal.GetClient(Param); // 2. Выполняем запрос
+    Response := Uployal.GetClient(Param); // 2. Р’С‹РїРѕР»РЅСЏРµРј Р·Р°РїСЂРѕСЃ
 
-    UpdateRequest(ID, Response); // 3. Логируем ответ
+    UpdateRequest(ID, Response); // 3. Р›РѕРіРёСЂСѓРµРј РѕС‚РІРµС‚
 
-    Result := Response; // 4. Возвращаем TApiResult "как есть"
+    Result := Response; // 4. Р’РѕР·РІСЂР°С‰Р°РµРј TApiResult "РєР°Рє РµСЃС‚СЊ"
   finally
     Uployal.Free;
   end;
 end;
 
-// ИЗМЕНЕНО: Возвращает TApiResult
+// РР—РњР•РќР•РќРћ: Р’РѕР·РІСЂР°С‰Р°РµС‚ TApiResult
 function TFE4Uployal.GetClients(const Params: TStringList): TApiResult;
 var
   Uployal: TUployal;
@@ -2168,10 +2168,10 @@ begin
   Uployal := TUployal.Create(FHawkID, FHawkKey);
   try
     try
-      ID := AddRequest('GET', Url, ''); // TODO: Логировать Params
+      ID := AddRequest('GET', Url, ''); // TODO: Р›РѕРіРёСЂРѕРІР°С‚СЊ Params
     except
       on E: Exception do
-        Exit(TApiResult.Fail('Ошибка БД (AddRequest): ' + E.Message, DATABASE_ERROR_CODE, 'DB_ERROR'));
+        Exit(TApiResult.Fail('РћС€РёР±РєР° Р‘Р” (AddRequest): ' + E.Message, DATABASE_ERROR_CODE, 'DB_ERROR'));
     end;
 
     Response := Uployal.GetClients(Params);
@@ -2184,11 +2184,11 @@ begin
   end;
 end;
 
-// ИЗМЕНЕНО: Возвращает TResult (статус пакетной задачи)
+// РР—РњР•РќР•РќРћ: Р’РѕР·РІСЂР°С‰Р°РµС‚ TResult (СЃС‚Р°С‚СѓСЃ РїР°РєРµС‚РЅРѕР№ Р·Р°РґР°С‡Рё)
 function TFE4Uployal.UpdateClient: TResult;
 var
   Params: TStringList;
-  ApiRes: TApiResult; // <-- Результат от GetClients
+  ApiRes: TApiResult; // <-- Р РµР·СѓР»СЊС‚Р°С‚ РѕС‚ GetClients
   X, Y: ISuperObject;
   A: ISuperArray;
   Consumer_ID: integer;
@@ -2198,23 +2198,23 @@ begin
   Params := TStringList.Create;
   try
     Params.Add('page_size=100');
-    ApiRes := GetClients(Params); // 1. Вызываем наш GetClients
+    ApiRes := GetClients(Params); // 1. Р’С‹Р·С‹РІР°РµРј РЅР°С€ GetClients
 
-    // 2. Проверяем TApiResult
+    // 2. РџСЂРѕРІРµСЂСЏРµРј TApiResult
     if ApiRes.IsFail then
-      Exit(TResult.Fail(ApiRes.Error, ApiRes.ErrorCode)); // Возвращаем ошибку API
+      Exit(TResult.Fail(ApiRes.Error, ApiRes.ErrorCode)); // Р’РѕР·РІСЂР°С‰Р°РµРј РѕС€РёР±РєСѓ API
 
-    // 3. Получаем JSON
+    // 3. РџРѕР»СѓС‡Р°РµРј JSON
     s := ApiRes.AnswerJson;
     X := SO(s);
 
-    // 4. Проверяем 'success' флаг
-    // (TUployal.ConvertResult не добавляет 'success', он просто передает Value.
-    // Значит, мы парсим *сырой* ответ Uployal)
+    // 4. РџСЂРѕРІРµСЂСЏРµРј 'success' С„Р»Р°Рі
+    // (TUployal.ConvertResult РЅРµ РґРѕР±Р°РІР»СЏРµС‚ 'success', РѕРЅ РїСЂРѕСЃС‚Рѕ РїРµСЂРµРґР°РµС‚ Value.
+    // Р—РЅР°С‡РёС‚, РјС‹ РїР°СЂСЃРёРј *СЃС‹СЂРѕР№* РѕС‚РІРµС‚ Uployal)
     // if not X.B['success'] then ...
-    // -> Убираем эту проверку, т.к. ApiRes.IsFail уже ее выполнил
+    // -> РЈР±РёСЂР°РµРј СЌС‚Сѓ РїСЂРѕРІРµСЂРєСѓ, С‚.Рє. ApiRes.IsFail СѓР¶Рµ РµРµ РІС‹РїРѕР»РЅРёР»
 
-    // 5. Парсим сырой JSON из ApiRes.Value
+    // 5. РџР°СЂСЃРёРј СЃС‹СЂРѕР№ JSON РёР· ApiRes.Value
     X := SO(ApiRes.Value);
 
     with FB do
@@ -2223,7 +2223,7 @@ begin
         if Assigned(OnProgress) then
         begin
           OnProgress(Self, 1);
-          // Структура ответа Uployal: { "page_number": ..., "data": [...] }
+          // РЎС‚СЂСѓРєС‚СѓСЂР° РѕС‚РІРµС‚Р° Uployal: { "page_number": ..., "data": [...] }
           DoProgress(X.I['total_items_count']);
         end;
 
@@ -2234,13 +2234,13 @@ begin
           Params.Clear;
           Params.Add('page_size=100');
           Params.Add(Format('page=%d', [i]));
-          ApiRes := GetClients(Params); // Получаем следующую страницу
+          ApiRes := GetClients(Params); // РџРѕР»СѓС‡Р°РµРј СЃР»РµРґСѓСЋС‰СѓСЋ СЃС‚СЂР°РЅРёС†Сѓ
 
           if ApiRes.IsFail then
-            raise Exception.Create('Ошибка API на странице ' + IntToStr(i) + ': ' + ApiRes.Error);
+            raise Exception.Create('РћС€РёР±РєР° API РЅР° СЃС‚СЂР°РЅРёС†Рµ ' + IntToStr(i) + ': ' + ApiRes.Error);
 
-          X := SO(ApiRes.Value); // Парсим сырой JSON
-          A := X.A['data'];      // Получаем массив 'data'
+          X := SO(ApiRes.Value); // РџР°СЂСЃРёРј СЃС‹СЂРѕР№ JSON
+          A := X.A['data'];      // РџРѕР»СѓС‡Р°РµРј РјР°СЃСЃРёРІ 'data'
 
           StartTransaction;
           for var j := 0 to A.Length - 1 do
@@ -2267,11 +2267,11 @@ begin
         on E: Exception do
         begin
           Rollback;
-          Exit(TResult.Fail('Ошибка БД/пакета: ' + E.Message, DATABASE_ERROR_CODE));
+          Exit(TResult.Fail('РћС€РёР±РєР° Р‘Р”/РїР°РєРµС‚Р°: ' + E.Message, DATABASE_ERROR_CODE));
         end;
       end;
     end;
-    Result := TResult.Ok('Клиенты успешно обновлены');
+    Result := TResult.Ok('РљР»РёРµРЅС‚С‹ СѓСЃРїРµС€РЅРѕ РѕР±РЅРѕРІР»РµРЅС‹');
   finally
     if Assigned(OnProgress) then
       OnProgress(Self, 0);
@@ -2279,7 +2279,7 @@ begin
   end;
 end;
 
-// ИЗМЕНЕНО: Возвращает TApiResult
+// РР—РњР•РќР•РќРћ: Р’РѕР·РІСЂР°С‰Р°РµС‚ TApiResult
 function TFE4Uployal.GetCategory: TApiResult;
 var
   Uployal: TUployal;
@@ -2292,7 +2292,7 @@ begin
       ID := AddRequest('GET', '/api/rs/v2/category/', '');
     except
       on E: Exception do
-        Exit(TApiResult.Fail('Ошибка БД (AddRequest): ' + E.Message, DATABASE_ERROR_CODE, 'DB_ERROR'));
+        Exit(TApiResult.Fail('РћС€РёР±РєР° Р‘Р” (AddRequest): ' + E.Message, DATABASE_ERROR_CODE, 'DB_ERROR'));
     end;
 
     Response := Uployal.GetCategory;
@@ -2303,7 +2303,7 @@ begin
   end;
 end;
 
-// ИЗМЕНЕНО: Возвращает TApiResult
+// РР—РњР•РќР•РќРћ: Р’РѕР·РІСЂР°С‰Р°РµС‚ TApiResult
 function TFE4Uployal.SetCategory: TApiResult;
 var
   Uployal: TUployal;
@@ -2320,7 +2320,7 @@ begin
   WDS := wdsBAF;
 
   try
-    // --- 1. Сбор данных ---
+    // --- 1. РЎР±РѕСЂ РґР°РЅРЅС‹С… ---
     case WDS of
       wdsFE:
         begin
@@ -2333,26 +2333,26 @@ begin
           if btr.IsFail then raise Exception.Create('BTR STKGRP 2: ' + btr.Error);
           tFEGroup2 := btr.Value;
 
-          // ... (логика чтения tFEGroup1, tFEGroup2) ...
+          // ... (Р»РѕРіРёРєР° С‡С‚РµРЅРёСЏ tFEGroup1, tFEGroup2) ...
         end;
       wdsBAF:
         begin
-          // ... (логика чтения из FB.Q['SelectGroup']) ...
+          // ... (Р»РѕРіРёРєР° С‡С‚РµРЅРёСЏ РёР· FB.Q['SelectGroup']) ...
         end;
     end;
   except
     on E: Exception do
-      Exit(TApiResult.Fail('Ошибка чтения данных (BTR/FB): ' + E.Message, DATABASE_ERROR_CODE, 'DATA_READ_ERROR'));
+      Exit(TApiResult.Fail('РћС€РёР±РєР° С‡С‚РµРЅРёСЏ РґР°РЅРЅС‹С… (BTR/FB): ' + E.Message, DATABASE_ERROR_CODE, 'DATA_READ_ERROR'));
   end;
 
-  // --- 2. Отправка данных ---
+  // --- 2. РћС‚РїСЂР°РІРєР° РґР°РЅРЅС‹С… ---
   Uployal := TUployal.Create(FHawkID, FHawkKey);
   try
     try
       ID := AddRequest('POST', '/api/rs/v2/category/', Y.AsJSon(true, false));
     except
       on E: Exception do
-        Exit(TApiResult.Fail('Ошибка БД (AddRequest): ' + E.Message, DATABASE_ERROR_CODE, 'DB_ERROR'));
+        Exit(TApiResult.Fail('РћС€РёР±РєР° Р‘Р” (AddRequest): ' + E.Message, DATABASE_ERROR_CODE, 'DB_ERROR'));
     end;
 
     Response := Uployal.SetCategory(Y);
@@ -2363,7 +2363,7 @@ begin
   end;
 end;
 
-// ИЗМЕНЕНО: Возвращает TApiResult
+// РР—РњР•РќР•РќРћ: Р’РѕР·РІСЂР°С‰Р°РµС‚ TApiResult
 function TFE4Uployal.GetProduct: TApiResult;
 var
   Uployal: TUployal;
@@ -2376,7 +2376,7 @@ begin
       ID := AddRequest('GET', '/api/rs/v2/product/?page_size=100&page=1', '');
     except
       on E: Exception do
-        Exit(TApiResult.Fail('Ошибка БД (AddRequest): ' + E.Message, DATABASE_ERROR_CODE, 'DB_ERROR'));
+        Exit(TApiResult.Fail('РћС€РёР±РєР° Р‘Р” (AddRequest): ' + E.Message, DATABASE_ERROR_CODE, 'DB_ERROR'));
     end;
 
     Response := Uployal.GetProduct;
@@ -2387,11 +2387,11 @@ begin
   end;
 end;
 
-// ИЗМЕНЕНО: Возвращает TApiResult
+// РР—РњР•РќР•РќРћ: Р’РѕР·РІСЂР°С‰Р°РµС‚ TApiResult
 function TFE4Uployal.SetProduct(AUpdatePeriod: TUpdatePeriod): TApiResult;
 var
   Uployal: TUployal;
-  Response: TApiResult; // <-- ИЗМЕНЕНО
+  Response: TApiResult; // <-- РР—РњР•РќР•РќРћ
   BTRSession: IBTRSession;
   btr: TResult<TtbTable>;
   tFEStuff: TtbTable;
@@ -2401,30 +2401,30 @@ var
 begin
   Y := SA;
   try
-    // --- 1. Сбор данных ---
+    // --- 1. РЎР±РѕСЂ РґР°РЅРЅС‹С… ---
     FB.AddQuery('SlctProduct');
     // ... (SQL SlctProduct) ...
     BTRSession := TBTRSession.Create;
     btr := BTRSession.GetTableBTR('STKSTF', FPathFE, 'stk', [], fiSystem);
     if btr.IsFail then raise Exception.Create('BTR STKSTF: ' + btr.Error);
     tFEStuff := btr.Value;
-    // ... (логика чтения Btrieve, сборка Y) ...
+    // ... (Р»РѕРіРёРєР° С‡С‚РµРЅРёСЏ Btrieve, СЃР±РѕСЂРєР° Y) ...
   except
     on E: Exception do
-      Exit(TApiResult.Fail('Ошибка чтения данных (BTR/FB): ' + E.Message, DATABASE_ERROR_CODE, 'DATA_READ_ERROR'));
+      Exit(TApiResult.Fail('РћС€РёР±РєР° С‡С‚РµРЅРёСЏ РґР°РЅРЅС‹С… (BTR/FB): ' + E.Message, DATABASE_ERROR_CODE, 'DATA_READ_ERROR'));
   end;
 
-  // --- 2. Отправка данных ---
+  // --- 2. РћС‚РїСЂР°РІРєР° РґР°РЅРЅС‹С… ---
   Uployal := TUployal.Create(FHawkID, FHawkKey);
   try
     try
       ID := AddRequest('POST', '/api/rs/v2/product/', Y.AsJSon(true, false));
     except
       on E: Exception do
-        Exit(TApiResult.Fail('Ошибка БД (AddRequest): ' + E.Message, DATABASE_ERROR_CODE, 'DB_ERROR'));
+        Exit(TApiResult.Fail('РћС€РёР±РєР° Р‘Р” (AddRequest): ' + E.Message, DATABASE_ERROR_CODE, 'DB_ERROR'));
     end;
 
-    Response := Uployal.SetProduct(Y); // <-- Вызов Uployal
+    Response := Uployal.SetProduct(Y); // <-- Р’С‹Р·РѕРІ Uployal
     UpdateRequest(ID, Response);
     Result := Response;
   finally
@@ -2432,29 +2432,29 @@ begin
   end;
 end;
 
-// ... (BodyCheck, AddConsumer, AddCard, AddPurchase - без изменений) ...
+// ... (BodyCheck, AddConsumer, AddCard, AddPurchase - Р±РµР· РёР·РјРµРЅРµРЅРёР№) ...
 function TFE4Uployal.BodyCheck: ISuperObject;
 begin
-  // ... (реализация) ...
+  // ... (СЂРµР°Р»РёР·Р°С†РёСЏ) ...
 end;
 function TFE4Uployal.BodyCheck(Y: ISuperObject): ISuperObject;
 begin
-  // ... (реализация) ...
+  // ... (СЂРµР°Р»РёР·Р°С†РёСЏ) ...
 end;
 function TFE4Uployal.AddConsumer(X: ISuperObject): integer;
 begin
-  // ... (реализация) ...
+  // ... (СЂРµР°Р»РёР·Р°С†РёСЏ) ...
 end;
 function TFE4Uployal.AddCard(X: ISuperObject): string;
 begin
-  // ... (реализация) ...
+  // ... (СЂРµР°Р»РёР·Р°С†РёСЏ) ...
 end;
 function TFE4Uployal.AddPurchase: string;
 begin
-  // ... (реализация) ...
+  // ... (СЂРµР°Р»РёР·Р°С†РёСЏ) ...
 end;
 
-// --- Приватные методы API (теперь возвращают TApiResult) ---
+// --- РџСЂРёРІР°С‚РЅС‹Рµ РјРµС‚РѕРґС‹ API (С‚РµРїРµСЂСЊ РІРѕР·РІСЂР°С‰Р°СЋС‚ TApiResult) ---
 
 function TFE4Uployal.OpenCheck(X: ISuperObject): TApiResult;
 var
@@ -2468,7 +2468,7 @@ begin
       ID := AddRequest('POST', '/api/rs/v2/order/open/', X.AsJSon(true, false));
     except
       on E: Exception do
-        Exit(TApiResult.Fail('Ошибка БД (AddRequest): ' + E.Message, DATABASE_ERROR_CODE, 'DB_ERROR'));
+        Exit(TApiResult.Fail('РћС€РёР±РєР° Р‘Р” (AddRequest): ' + E.Message, DATABASE_ERROR_CODE, 'DB_ERROR'));
     end;
 
     Response := Uployal.OrderOpen(X);
@@ -2491,7 +2491,7 @@ begin
       ID := AddRequest('POST', '/api/rs/v2/order/close/', X.AsJSon(true, false));
     except
       on E: Exception do
-        Exit(TApiResult.Fail('Ошибка БД (AddRequest): ' + E.Message, DATABASE_ERROR_CODE, 'DB_ERROR'));
+        Exit(TApiResult.Fail('РћС€РёР±РєР° Р‘Р” (AddRequest): ' + E.Message, DATABASE_ERROR_CODE, 'DB_ERROR'));
     end;
 
     Response := Uployal.OrderClose(X);
@@ -2502,13 +2502,13 @@ begin
   end;
 end;
 
-// Метод-заглушка
+// РњРµС‚РѕРґ-Р·Р°РіР»СѓС€РєР°
 function TFE4Uployal.SaveCheck(X: ISuperObject): TApiResult;
 begin
-  Result := TApiResult.Fail('Метод SaveCheck не реализован', -1, 'NOT_IMPLEMENTED');
+  Result := TApiResult.Fail('РњРµС‚РѕРґ SaveCheck РЅРµ СЂРµР°Р»РёР·РѕРІР°РЅ', -1, 'NOT_IMPLEMENTED');
 end;
 
-// --- Публичные методы SetCheck (теперь возвращают TApiResult) ---
+// --- РџСѓР±Р»РёС‡РЅС‹Рµ РјРµС‚РѕРґС‹ SetCheck (С‚РµРїРµСЂСЊ РІРѕР·РІСЂР°С‰Р°СЋС‚ TApiResult) ---
 
 function TFE4Uployal.SetCheck(CheckInfo: TCheckInfo): TApiResult;
 var
@@ -2518,32 +2518,32 @@ begin
   FCheckInfo := CheckInfo;
 
   try
-    // TODO: Открыть таблицы tFECheck, tFEPoz, tFEStuff...
+    // TODO: РћС‚РєСЂС‹С‚СЊ С‚Р°Р±Р»РёС†С‹ tFECheck, tFEPoz, tFEStuff...
     // if not tFECheck.FindKey(...) then ...
 
     if IsSendCheck then
-      Exit(TApiResult.Fail('Чек уже отправлен', CHECK_ALREADY_SENDED, 'CHECK_ERROR'));
+      Exit(TApiResult.Fail('Р§РµРє СѓР¶Рµ РѕС‚РїСЂР°РІР»РµРЅ', CHECK_ALREADY_SENDED, 'CHECK_ERROR'));
 
-    X := BodyCheck; // Формируем JSON чека из Btrieve
+    X := BodyCheck; // Р¤РѕСЂРјРёСЂСѓРµРј JSON С‡РµРєР° РёР· Btrieve
 
-    // 1. Открываем чек
+    // 1. РћС‚РєСЂС‹РІР°РµРј С‡РµРє
     OpenRes := OpenCheck(X);
 
-    // 2. Проверяем результат
+    // 2. РџСЂРѕРІРµСЂСЏРµРј СЂРµР·СѓР»СЊС‚Р°С‚
     if OpenRes.IsFail then
-      Exit(OpenRes); // Возвращаем ошибку от OpenCheck
+      Exit(OpenRes); // Р’РѕР·РІСЂР°С‰Р°РµРј РѕС€РёР±РєСѓ РѕС‚ OpenCheck
 
-    // 3. TODO: Закрыть чек?
+    // 3. TODO: Р—Р°РєСЂС‹С‚СЊ С‡РµРє?
     // CloseRes := CloseCheck(X);
 
-    // 4. Обновляем статус в нашей БД
+    // 4. РћР±РЅРѕРІР»СЏРµРј СЃС‚Р°С‚СѓСЃ РІ РЅР°С€РµР№ Р‘Р”
     UpdateCheck;
 
-    Result := OpenRes; // Возвращаем успешный результат от OpenCheck
+    Result := OpenRes; // Р’РѕР·РІСЂР°С‰Р°РµРј СѓСЃРїРµС€РЅС‹Р№ СЂРµР·СѓР»СЊС‚Р°С‚ РѕС‚ OpenCheck
 
   except
     on E: Exception do
-      Result := TApiResult.Fail('Ошибка обработки чека (BTR/DB): ' + E.Message, DATABASE_ERROR_CODE, 'CHECK_EXCEPTION');
+      Result := TApiResult.Fail('РћС€РёР±РєР° РѕР±СЂР°Р±РѕС‚РєРё С‡РµРєР° (BTR/DB): ' + E.Message, DATABASE_ERROR_CODE, 'CHECK_EXCEPTION');
   end;
 end;
 
@@ -2553,30 +2553,30 @@ var
   OpenRes: TApiResult;
 begin
   try
-    // 1. Формируем тело чека из переданного JSON
+    // 1. Р¤РѕСЂРјРёСЂСѓРµРј С‚РµР»Рѕ С‡РµРєР° РёР· РїРµСЂРµРґР°РЅРЅРѕРіРѕ JSON
     Body := BodyCheck(X);
 
     if IsSendCheck then
-      Exit(TApiResult.Fail('Чек уже отправлен', CHECK_ALREADY_SENDED, 'CHECK_ERROR'));
+      Exit(TApiResult.Fail('Р§РµРє СѓР¶Рµ РѕС‚РїСЂР°РІР»РµРЅ', CHECK_ALREADY_SENDED, 'CHECK_ERROR'));
 
-    // 2. Открываем чек
+    // 2. РћС‚РєСЂС‹РІР°РµРј С‡РµРє
     OpenRes := OpenCheck(Body);
 
-    // 3. Проверяем результат
+    // 3. РџСЂРѕРІРµСЂСЏРµРј СЂРµР·СѓР»СЊС‚Р°С‚
     if OpenRes.IsFail then
       Exit(OpenRes);
 
-    // 4. TODO: Закрыть чек?
+    // 4. TODO: Р—Р°РєСЂС‹С‚СЊ С‡РµРє?
     // CloseRes := CloseCheck(Body);
     // if CloseRes.IsFail then Exit(CloseRes);
 
-    // 5. Обновляем статус в нашей БД
+    // 5. РћР±РЅРѕРІР»СЏРµРј СЃС‚Р°С‚СѓСЃ РІ РЅР°С€РµР№ Р‘Р”
     UpdateCheck;
 
     Result := OpenRes;
   except
     on E: Exception do
-      Result := TApiResult.Fail('Ошибка обработки чека (JSON/DB): ' + E.Message, DATABASE_ERROR_CODE, 'CHECK_EXCEPTION');
+      Result := TApiResult.Fail('РћС€РёР±РєР° РѕР±СЂР°Р±РѕС‚РєРё С‡РµРєР° (JSON/DB): ' + E.Message, DATABASE_ERROR_CODE, 'CHECK_EXCEPTION');
   end;
 end;
 
