@@ -2,7 +2,7 @@
 {                                                                              }
 {                             Class Uployal                                    }
 {                                                                              }
-{                   Copyright (c) 2024-2025 Бабенко Олег                       }
+{                   Copyright (c) 2024-2025 Р‘Р°Р±РµРЅРєРѕ РћР»РµРі                       }
 {                                19.12.2024                                    }
 {                                                                              }
 {    Refactored with TResult/TApiResult pattern by Gemini (27.10.2025)         }
@@ -111,7 +111,7 @@ var
   X: ISuperObject;
   Y: TJSONValue;
 begin
-  // Проверяем на пустую строку
+  // РџСЂРѕРІРµСЂСЏРµРј РЅР° РїСѓСЃС‚СѓСЋ СЃС‚СЂРѕРєСѓ
   if Trim(s) = '' then Exit('');
 
   try
@@ -121,7 +121,7 @@ begin
     else
     begin
       X := SO;
-      X.S['error'] := s; // Если парсинг не удался, возвращаем объект с полем error
+      X.S['error'] := s; // Р•СЃР»Рё РїР°СЂСЃРёРЅРі РЅРµ СѓРґР°Р»СЃСЏ, РІРѕР·РІСЂР°С‰Р°РµРј РѕР±СЉРµРєС‚ СЃ РїРѕР»РµРј error
     end;
     Result := X.AsJSon;
   finally
@@ -132,7 +132,7 @@ end;
 procedure TUployal.LoadOpenSSLLibrary;
 begin
   if not IdSSLOpenSSL.LoadOpenSSLLibrary
-    then raise Exception.Create('Не удалось загрузить библиотеки OpenSSL');
+    then raise Exception.Create('РќРµ СѓРґР°Р»РѕСЃСЊ Р·Р°РіСЂСѓР·РёС‚СЊ Р±РёР±Р»РёРѕС‚РµРєРё OpenSSL');
 end;
 
 function TUployal.GetPayloadHash(const Payload: string): string;
@@ -154,9 +154,9 @@ var
   IsPayload: boolean;
 begin
   try
-    LoadOpenSSLLibrary; // Убедимся, что SSL загружен
+    LoadOpenSSLLibrary; // РЈР±РµРґРёРјСЃСЏ, С‡С‚Рѕ SSL Р·Р°РіСЂСѓР¶РµРЅ
   except
-     on E: Exception do raise Exception.Create('Ошибка при загрузке OpenSSL для Hawk: ' + E.Message);
+     on E: Exception do raise Exception.Create('РћС€РёР±РєР° РїСЂРё Р·Р°РіСЂСѓР·РєРµ OpenSSL РґР»СЏ Hawk: ' + E.Message);
   end;
 
   IsPayload := length(APayload) > 0;
@@ -180,7 +180,7 @@ begin
   LHMAC := TIdHMACSHA256.Create;
   try
     LHMAC.Key := ToBytes(AKey, IndyTextEncoding_UTF8);
-    // TIdEncoderMIME.EncodeBytes устарел, используем TNetEncoding
+    // TIdEncoderMIME.EncodeBytes СѓСЃС‚Р°СЂРµР», РёСЃРїРѕР»СЊР·СѓРµРј TNetEncoding
     LMac := TNetEncoding.Base64.EncodeBytesToString(LHMAC.HashValue(ToBytes(LNormalizedString, IndyTextEncoding_UTF8)));
   finally
     LHMAC.Free;
@@ -191,9 +191,9 @@ begin
     else Result:=Format('Hawk id="%s",ts="%s",nonce="%s",mac="%s"',[AId,LTimestamp,LNonce,LMac]);
 end;
 
-// --- Внутренние методы ---
+// --- Р’РЅСѓС‚СЂРµРЅРЅРёРµ РјРµС‚РѕРґС‹ ---
 
-// ИЗМЕНЕНО: Использует новую TResult<T>.Fail с DetailMessage
+// РР—РњР•РќР•РќРћ: РСЃРїРѕР»СЊР·СѓРµС‚ РЅРѕРІСѓСЋ TResult<T>.Fail СЃ DetailMessage
 function TUployal.GetResult(const Response: IHTTPResponse): TResult<string>;
 var
   Content: string;
@@ -207,13 +207,13 @@ begin
   end
   else
   begin
-    // Формируем детальное сообщение
+    // Р¤РѕСЂРјРёСЂСѓРµРј РґРµС‚Р°Р»СЊРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ
     LDetailError := Format('%s. Details: %s', [Response.StatusText, Content]);
-    // Передаем чистый статус и детали раздельно
+    // РџРµСЂРµРґР°РµРј С‡РёСЃС‚С‹Р№ СЃС‚Р°С‚СѓСЃ Рё РґРµС‚Р°Р»Рё СЂР°Р·РґРµР»СЊРЅРѕ
     Result := TResult<string>.Fail(
-      Response.StatusText, // Чистый статус (для StatusValue)
+      Response.StatusText, // Р§РёСЃС‚С‹Р№ СЃС‚Р°С‚СѓСЃ (РґР»СЏ StatusValue)
       Response.StatusCode,
-      LDetailError        // Детальное сообщение (для Error/Message)
+      LDetailError        // Р”РµС‚Р°Р»СЊРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ (РґР»СЏ Error/Message)
     );
   end;
 end;
@@ -232,10 +232,10 @@ begin
     try
       Response := HTTPClient.Get(AFullUrl);
     except
-      on E: ENetHttpClientException do // Ловим специфичное исключение
+      on E: ENetHttpClientException do // Р›РѕРІРёРј СЃРїРµС†РёС„РёС‡РЅРѕРµ РёСЃРєР»СЋС‡РµРЅРёРµ
         Exit(TResult<string>.Fail('Network Error: ' + E.Message, NETWORK_ERROR_CODE, E.Message));
-      on E: Exception do // Ловим другие возможные ошибки
-        Exit(TResult<string>.Fail('Error during GET request: ' + E.Message, -2, E.Message)); // Общий код ошибки
+      on E: Exception do // Р›РѕРІРёРј РґСЂСѓРіРёРµ РІРѕР·РјРѕР¶РЅС‹Рµ РѕС€РёР±РєРё
+        Exit(TResult<string>.Fail('Error during GET request: ' + E.Message, -2, E.Message)); // РћР±С‰РёР№ РєРѕРґ РѕС€РёР±РєРё
     end;
     Result := GetResult(Response);
   finally
@@ -272,21 +272,21 @@ begin
   end;
 end;
 
-// ИЗМЕНЕНО: Использует DetailMessage из TResult<T> для ADetailError в TApiResult.Fail
+// РР—РњР•РќР•РќРћ: РСЃРїРѕР»СЊР·СѓРµС‚ DetailMessage РёР· TResult<T> РґР»СЏ ADetailError РІ TApiResult.Fail
 function TUployal.ConvertResult(const AResult: TResult<string>; const AErrorType: string): TApiResult;
 begin
   if AResult.IsOk then
     Result := TApiResult.Ok(AResult.Value)
   else
     Result := TApiResult.Fail(
-      AResult.Error,         // Чистый статус -> StatusValue
+      AResult.Error,         // Р§РёСЃС‚С‹Р№ СЃС‚Р°С‚СѓСЃ -> StatusValue
       AResult.ErrorCode,
       AErrorType,
-      AResult.ErrorDetail // Детали -> Error
+      AResult.ErrorDetail // Р”РµС‚Р°Р»Рё -> Error
     );
 end;
 
-// --- Публичные методы (без изменений, т.к. используют ConvertResult) ---
+// --- РџСѓР±Р»РёС‡РЅС‹Рµ РјРµС‚РѕРґС‹ (Р±РµР· РёР·РјРµРЅРµРЅРёР№, С‚.Рє. РёСЃРїРѕР»СЊР·СѓСЋС‚ ConvertResult) ---
 function TUployal.GetClient(const Param: string): TApiResult;
 const Resource = '/api/rs/v2/consumer/';
 var
@@ -336,9 +336,9 @@ var
   FullURL, ResourceUri: string;
 begin
   URI := TURI.Create(FBaseUrl + Resource);
-  // Добавляем параметры по умолчанию, если нужно
-  URI.AddParameter('page_size', '100'); // Пример
-  URI.AddParameter('page', '1');      // Пример
+  // Р”РѕР±Р°РІР»СЏРµРј РїР°СЂР°РјРµС‚СЂС‹ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ, РµСЃР»Рё РЅСѓР¶РЅРѕ
+  URI.AddParameter('page_size', '100'); // РџСЂРёРјРµСЂ
+  URI.AddParameter('page', '1');      // РџСЂРёРјРµСЂ
   FullURL := URI.ToString;
   ResourceUri := FullURL.Replace(FBaseUrl, '');
   Result := ConvertResult(ExecuteGet(ResourceUri, FullURL), 'PRODUCT_GET_ERROR');
