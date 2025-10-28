@@ -1,8 +1,8 @@
 {~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}
 {                                                                              }
-{                                 Утилиты                                      }
+{                                 РЈС‚РёР»РёС‚С‹                                      }
 {                                                                              }
-{                       Copyright (c) 2025 Бабенко Олег                        }
+{                       Copyright (c) 2025 Р‘Р°Р±РµРЅРєРѕ РћР»РµРі                        }
 {                                12.04.2025                                    }
 {                                                                              }
 {   Modified based on Gemini discussion (27.10.2025) - TResult<T> + Detail     }
@@ -16,7 +16,7 @@ interface
 uses Windows, Forms, Controls, SysUtils;
 
 type
-  // 1. TResult - для операций, возвращающих только статус
+  // 1. TResult - РґР»СЏ РѕРїРµСЂР°С†РёР№, РІРѕР·РІСЂР°С‰Р°СЋС‰РёС… С‚РѕР»СЊРєРѕ СЃС‚Р°С‚СѓСЃ
   TResult          = record
   strict private
     FSuccess       : boolean;
@@ -32,53 +32,53 @@ type
     property       ErrorCode: integer read FErrorCode;
   end;
 
-  // 2. TResult<T> - для операций, возвращающих данные (с ErrorDetail)
+  // 2. TResult<T> - РґР»СЏ РѕРїРµСЂР°С†РёР№, РІРѕР·РІСЂР°С‰Р°СЋС‰РёС… РґР°РЅРЅС‹Рµ (СЃ ErrorDetail)
   TResult<T>       = record
   strict private
     FSuccess       : boolean;
     FValue         : T;
-    FError         : string;       // <-- ЧИСТЫЙ статус/основное сообщение
+    FError         : string;       // <-- Р§РРЎРўР«Р™ СЃС‚Р°С‚СѓСЃ/РѕСЃРЅРѕРІРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ
     FErrorCode     : integer;
-    FErrorDetail   : string; // <-- ПОДРОБНОЕ сообщение
+    FErrorDetail   : string; // <-- РџРћР”Р РћР‘РќРћР• СЃРѕРѕР±С‰РµРЅРёРµ
   public
     class function Ok(const AValue: T): TResult<T>; static;
-    // ИЗМЕНЕНО: Добавлен ADetailMessage
+    // РР—РњР•РќР•РќРћ: Р”РѕР±Р°РІР»РµРЅ ADetailMessage
     class function Fail(const AError: string; const AErrorCode: integer; const ADetailMessage: string = ''): TResult<T>; static;
     function       IsOk: boolean; inline;
     function       IsFail: boolean; inline;
     function       OrDefault(const ADefault: T): T; inline;
     property       Success: boolean read FSuccess;
     property       Value: T read FValue;
-    property       Error: string read FError; // Чистый статус
+    property       Error: string read FError; // Р§РёСЃС‚С‹Р№ СЃС‚Р°С‚СѓСЃ
     property       ErrorCode: integer read FErrorCode;
-    property       ErrorDetail: string read FErrorDetail; // Детали
+    property       ErrorDetail: string read FErrorDetail; // Р”РµС‚Р°Р»Рё
   end;
 
-  // 3. TApiResult - для ответов API
+  // 3. TApiResult - РґР»СЏ РѕС‚РІРµС‚РѕРІ API
   TApiResult       = record
   strict private
     FSuccess       : boolean;
-    FValue         : string;   // Успешный JSON-ответ
-    FStatusCode    : integer; // HTTP статус код (если применимо, иначе 0 или кастомный)
-    FStatusValue   : string; // Чистый текст статуса (из TResult.Error)
-    FError         : string;   // Детальное сообщение об ошибке (из TResult.ErrorDetail)
-    FErrorCode     : integer; // Бизнес-код ошибки (может совпадать с StatusCode)
-    FErrorType     : string; // Тип ошибки ('NETWORK_ERROR', 'CLIENT_GET_ERROR', etc.)
-    function        GetJson: string; // Приватный метод для свойства ToJson
+    FValue         : string;   // РЈСЃРїРµС€РЅС‹Р№ JSON-РѕС‚РІРµС‚
+    FStatusCode    : integer; // HTTP СЃС‚Р°С‚СѓСЃ РєРѕРґ (РµСЃР»Рё РїСЂРёРјРµРЅРёРјРѕ, РёРЅР°С‡Рµ 0 РёР»Рё РєР°СЃС‚РѕРјРЅС‹Р№)
+    FStatusValue   : string; // Р§РёСЃС‚С‹Р№ С‚РµРєСЃС‚ СЃС‚Р°С‚СѓСЃР° (РёР· TResult.Error)
+    FError         : string;   // Р”РµС‚Р°Р»СЊРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ РѕР± РѕС€РёР±РєРµ (РёР· TResult.ErrorDetail)
+    FErrorCode     : integer; // Р‘РёР·РЅРµСЃ-РєРѕРґ РѕС€РёР±РєРё (РјРѕР¶РµС‚ СЃРѕРІРїР°РґР°С‚СЊ СЃ StatusCode)
+    FErrorType     : string; // РўРёРї РѕС€РёР±РєРё ('NETWORK_ERROR', 'CLIENT_GET_ERROR', etc.)
+    function        GetJson: string; // РџСЂРёРІР°С‚РЅС‹Р№ РјРµС‚РѕРґ РґР»СЏ СЃРІРѕР№СЃС‚РІР° ToJson
   public
     class function Ok(const AValueJson: string): TApiResult; static;
-    // ИЗМЕНЕНО: Fail принимает чистый статус и детальное сообщение отдельно
+    // РР—РњР•РќР•РќРћ: Fail РїСЂРёРЅРёРјР°РµС‚ С‡РёСЃС‚С‹Р№ СЃС‚Р°С‚СѓСЃ Рё РґРµС‚Р°Р»СЊРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ РѕС‚РґРµР»СЊРЅРѕ
     class function Fail(const AStatusValue: string; const AErrorCode: integer; const AErrorType: string; const ADetailError: string = ''): TApiResult; static;
     function       IsOk: boolean; inline;
     function       IsFail: boolean; inline;
     property       Success: boolean read FSuccess;
-    property       Value: string read FValue; // Доступ к успешному JSON
+    property       Value: string read FValue; // Р”РѕСЃС‚СѓРї Рє СѓСЃРїРµС€РЅРѕРјСѓ JSON
     property       StatusCode: integer read FStatusCode;
-    property       StatusValue: string read FStatusValue; // Доступ к чистому статусу
-    property       Error: string read FError; // Доступ к детальному сообщению
+    property       StatusValue: string read FStatusValue; // Р”РѕСЃС‚СѓРї Рє С‡РёСЃС‚РѕРјСѓ СЃС‚Р°С‚СѓСЃСѓ
+    property       Error: string read FError; // Р”РѕСЃС‚СѓРї Рє РґРµС‚Р°Р»СЊРЅРѕРјСѓ СЃРѕРѕР±С‰РµРЅРёСЋ
     property       ErrorCode: integer read FErrorCode;
     property       ErrorType: string read FErrorType;
-    property       ToJson: string read GetJson; // Свойство возвращает JSON
+    property       ToJson: string read GetJson; // РЎРІРѕР№СЃС‚РІРѕ РІРѕР·РІСЂР°С‰Р°РµС‚ JSON
   end;
 
 function           FromClipboardExcel : TArray<TArray<string>>;
@@ -87,9 +87,9 @@ procedure          SetRussianKeyboardLayout;
 
 implementation
 
-uses Clipbrd, Table, xSuperObject; // Добавлен xSuperObject
+uses Clipbrd, Table, xSuperObject; // Р”РѕР±Р°РІР»РµРЅ xSuperObject
 
-// --- Реализация TResult ---
+// --- Р РµР°Р»РёР·Р°С†РёСЏ TResult ---
 class function TResult.Ok(const AMsg: string): TResult;
 begin
   Result.FSuccess := True;
@@ -114,7 +114,7 @@ begin
   Result := not FSuccess;
 end;
 
-// --- Реализация TResult<T> ---
+// --- Р РµР°Р»РёР·Р°С†РёСЏ TResult<T> ---
 class function TResult<T>.Ok(const AValue: T): TResult<T>;
 begin
   Result.FSuccess := True;
@@ -124,13 +124,13 @@ begin
   Result.FErrorDetail := '';
 end;
 
-// ИЗМЕНЕНО: Реализация нового Fail
+// РР—РњР•РќР•РќРћ: Р РµР°Р»РёР·Р°С†РёСЏ РЅРѕРІРѕРіРѕ Fail
 class function TResult<T>.Fail(const AError: string; const AErrorCode: integer; const ADetailMessage: string): TResult<T>;
 begin
   Result.FSuccess := False;
-  Result.FError := AError; // Чистый статус
+  Result.FError := AError; // Р§РёСЃС‚С‹Р№ СЃС‚Р°С‚СѓСЃ
   Result.FErrorCode := AErrorCode;
-  Result.FErrorDetail := ADetailMessage; // Детали
+  Result.FErrorDetail := ADetailMessage; // Р”РµС‚Р°Р»Рё
   Result.FValue := Default(T);
 end;
 
@@ -152,27 +152,27 @@ begin
     Result := ADefault;
 end;
 
-// --- Реализация TApiResult ---
+// --- Р РµР°Р»РёР·Р°С†РёСЏ TApiResult ---
 
 class function TApiResult.Ok(const AValueJson: string): TApiResult;
 begin
   Result.FSuccess := True;
   Result.FValue := AValueJson;
-  Result.FStatusCode := 200; // По умолчанию для успеха
+  Result.FStatusCode := 200; // РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РґР»СЏ СѓСЃРїРµС…Р°
   Result.FStatusValue := 'OK';
   Result.FError := '';
   Result.FErrorCode := 0;
   Result.FErrorType := '';
 end;
 
-// ИЗМЕНЕНО: Fail принимает StatusValue и DetailError
+// РР—РњР•РќР•РќРћ: Fail РїСЂРёРЅРёРјР°РµС‚ StatusValue Рё DetailError
 class function TApiResult.Fail(const AStatusValue: string; const AErrorCode: integer; const AErrorType: string; const ADetailError: string): TApiResult;
 begin
   Result.FSuccess := False;
   Result.FValue := '';
-  Result.FStatusCode := AErrorCode; // Используем код ошибки как статус код по умолчанию
-  Result.FStatusValue := AStatusValue; // Чистый статус
-  Result.FError := ADetailError; // Детальное сообщение
+  Result.FStatusCode := AErrorCode; // РСЃРїРѕР»СЊР·СѓРµРј РєРѕРґ РѕС€РёР±РєРё РєР°Рє СЃС‚Р°С‚СѓСЃ РєРѕРґ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
+  Result.FStatusValue := AStatusValue; // Р§РёСЃС‚С‹Р№ СЃС‚Р°С‚СѓСЃ
+  Result.FError := ADetailError; // Р”РµС‚Р°Р»СЊРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ
   Result.FErrorCode := AErrorCode;
   Result.FErrorType := AErrorType;
 end;
@@ -187,31 +187,31 @@ begin
   Result := not FSuccess;
 end;
 
-// Главная функция: возвращает либо Value, либо собранный JSON-ошибки
+// Р“Р»Р°РІРЅР°СЏ С„СѓРЅРєС†РёСЏ: РІРѕР·РІСЂР°С‰Р°РµС‚ Р»РёР±Рѕ Value, Р»РёР±Рѕ СЃРѕР±СЂР°РЅРЅС‹Р№ JSON-РѕС€РёР±РєРё
 function TApiResult.GetJson: string;
 var
   Json, Detail: ISuperObject;
 begin
   if FSuccess then
   begin
-    // Если успех, просто возвращаем сохраненный JSON
+    // Р•СЃР»Рё СѓСЃРїРµС…, РїСЂРѕСЃС‚Рѕ РІРѕР·РІСЂР°С‰Р°РµРј СЃРѕС…СЂР°РЅРµРЅРЅС‹Р№ JSON
     Result := FValue;
   end
   else
   begin
-    // Если неудача, собираем JSON по формату
+    // Р•СЃР»Рё РЅРµСѓРґР°С‡Р°, СЃРѕР±РёСЂР°РµРј JSON РїРѕ С„РѕСЂРјР°С‚Сѓ
     Json := SO;
     Json.B['success'] := False;
     Json.S['type'] := FErrorType;
     Detail := SO;
-    // ИСПОЛЬЗУЕМ FError (детальное сообщение) для 'message'
+    // РРЎРџРћР›Р¬Р—РЈР•Рњ FError (РґРµС‚Р°Р»СЊРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ) РґР»СЏ 'message'
     Detail.S['message'] := FError;
     Detail.I['code'] := FErrorCode;
-    // Добавляем чистый статус для ясности
+    // Р”РѕР±Р°РІР»СЏРµРј С‡РёСЃС‚С‹Р№ СЃС‚Р°С‚СѓСЃ РґР»СЏ СЏСЃРЅРѕСЃС‚Рё
     Detail.S['status'] := FStatusValue;
     Json.O['detail'] := Detail;
-    // Возвращаем компактную JSON-строку
-    Result := Json.AsJson(true, false); // true для читаемости
+    // Р’РѕР·РІСЂР°С‰Р°РµРј РєРѕРјРїР°РєС‚РЅСѓСЋ JSON-СЃС‚СЂРѕРєСѓ
+    Result := Json.AsJson(true, false); // true РґР»СЏ С‡РёС‚Р°РµРјРѕСЃС‚Рё
   end;
 end;
 
@@ -227,10 +227,10 @@ var
 begin
   SetLength(Result, 0);
   AClipboard:=Clipboard.AsText;
-  // Разделяем текст на строки
+  // Р Р°Р·РґРµР»СЏРµРј С‚РµРєСЃС‚ РЅР° СЃС‚СЂРѕРєРё
   RawLines := AClipboard.Split([sLineBreak]);
 
-  // Убираем пустые строки в конце
+  // РЈР±РёСЂР°РµРј РїСѓСЃС‚С‹Рµ СЃС‚СЂРѕРєРё РІ РєРѕРЅС†Рµ
   LineCount := Length(RawLines);
   if LineCount=0 then exit;
   while (LineCount>0) and (RawLines[LineCount-1].Trim='') do dec(LineCount);
@@ -241,7 +241,7 @@ begin
   SetLength(Result, Length(Lines));
   for RowIndex := 0 to High(Lines) do
     begin
-      Cells:=Lines[RowIndex].Split([#9]); // Табуляция
+      Cells:=Lines[RowIndex].Split([#9]); // РўР°Р±СѓР»СЏС†РёСЏ
       SetLength(Result[RowIndex], Length(Cells));
       for ColIndex:=0 to High(Cells) do Result[RowIndex][ColIndex]:=Cells[ColIndex];
     end;
@@ -256,7 +256,7 @@ var
   i              : integer;
 begin
   Result := nil;
-  // Clipboard := TClipboard.Create; // Не нужно создавать, используем глобальный Clipboard
+  // Clipboard := TClipboard.Create; // РќРµ РЅСѓР¶РЅРѕ СЃРѕР·РґР°РІР°С‚СЊ, РёСЃРїРѕР»СЊР·СѓРµРј РіР»РѕР±Р°Р»СЊРЅС‹Р№ Clipboard
   try
     if Clipboard.HasFormat(CF_UNICODETEXT) then
     begin
@@ -267,7 +267,7 @@ begin
         begin
           Ptr := GlobalLock(Handle);
           try
-            Data := Ptr; // Прямое присвоение PWideChar к string
+            Data := Ptr; // РџСЂСЏРјРѕРµ РїСЂРёСЃРІРѕРµРЅРёРµ PWideChar Рє string
             Lines := Data.Split([sLineBreak],TStringSplitOptions.ExcludeEmpty);
             SetLength(Result, Length(Lines));
             for i := 0 to High(Lines) do
@@ -281,14 +281,14 @@ begin
       end;
     end;
   finally
-    // Clipboard.Free; // Не нужно освобождать
+    // Clipboard.Free; // РќРµ РЅСѓР¶РЅРѕ РѕСЃРІРѕР±РѕР¶РґР°С‚СЊ
   end;
 end;
 
 
 procedure SetRussianKeyboardLayout;
 begin
-  LoadKeyboardLayout('00000419', KLF_ACTIVATE); // 00000419 — код русской раскладки
+  LoadKeyboardLayout('00000419', KLF_ACTIVATE); // 00000419 вЂ” РєРѕРґ СЂСѓСЃСЃРєРѕР№ СЂР°СЃРєР»Р°РґРєРё
 end;
 
 end.
